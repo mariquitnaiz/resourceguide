@@ -6,408 +6,166 @@
 <title>LastPass Resource Guide</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#f5f4f0;--surface:#fff;--surface2:#f0efe9;
+  --border:rgba(0,0,0,.08);--border-med:rgba(0,0,0,.14);
+  --text:#1a1a18;--text-muted:#6b6a64;--text-faint:#9e9d97;
+  --blue:#1a56db;--blue-bg:#eff4ff;--blue-border:#a4cafe;--blue-text:#1e429f;
+  --amber:#b45309;--amber-bg:#fffbeb;--amber-border:#fcd34d;--amber-text:#92400e;
+  --red:#c81e1e;--red-bg:#fdf2f2;--red-border:#f8b4b4;--red-text:#9b1c1c;
+  --green:#057a55;--green-bg:#f3faf7;--green-border:#84e1bc;--green-text:#03543f;
+  --accent:#d4380d;--radius:10px;--radius-sm:6px;
+}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;line-height:1.6}
 
-  :root {
-    --bg: #f5f4f0;
-    --surface: #ffffff;
-    --surface2: #f0efe9;
-    --border: rgba(0,0,0,0.08);
-    --border-med: rgba(0,0,0,0.14);
-    --text: #1a1a18;
-    --text-muted: #6b6a64;
-    --text-faint: #9e9d97;
-    --blue: #1a56db;
-    --blue-bg: #eff4ff;
-    --blue-border: #a4cafe;
-    --blue-text: #1e429f;
-    --amber: #b45309;
-    --amber-bg: #fffbeb;
-    --amber-border: #fcd34d;
-    --amber-text: #92400e;
-    --red: #c81e1e;
-    --red-bg: #fdf2f2;
-    --red-border: #f8b4b4;
-    --red-text: #9b1c1c;
-    --green: #057a55;
-    --green-bg: #f3faf7;
-    --green-border: #84e1bc;
-    --green-text: #03543f;
-    --accent: #d4380d;
-    --radius: 10px;
-    --radius-sm: 6px;
-  }
+/* HEADER */
+.header{background:var(--text);padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:56px;position:sticky;top:0;z-index:100}
+.header-title{color:#fff;font-size:14px;font-weight:500;letter-spacing:.04em;text-transform:uppercase}
+.header-right{display:flex;align-items:center;gap:10px}
+.admin-btn{background:transparent;border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.7);padding:6px 14px;border-radius:20px;font-size:12px;font-family:'DM Sans',sans-serif;cursor:pointer;display:flex;align-items:center;gap:6px;transition:all .2s}
+.admin-btn:hover{background:rgba(255,255,255,.1);color:#fff}
+.admin-btn.active{background:var(--accent);border-color:var(--accent);color:#fff}
+.edit-badge{display:none;background:var(--accent);color:#fff;font-size:11px;padding:3px 10px;border-radius:20px;font-weight:500}
+.edit-badge.visible{display:block}
 
-  body {
-    font-family: 'DM Sans', sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    min-height: 100vh;
-    line-height: 1.6;
-  }
+/* MAIN */
+.main{max-width:920px;margin:0 auto;padding:2.5rem 2rem 5rem}
 
-  /* HEADER */
-  .header {
-    background: var(--text);
-    padding: 0 2rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    height: 56px;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-  }
-  .header-title {
-    color: #fff;
-    font-size: 14px;
-    font-weight: 500;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-  }
-  .header-right { display: flex; align-items: center; gap: 12px; }
-  .admin-btn {
-    background: transparent;
-    border: 1px solid rgba(255,255,255,0.2);
-    color: rgba(255,255,255,0.7);
-    padding: 6px 14px;
-    border-radius: 20px;
-    font-size: 12px;
-    font-family: 'DM Sans', sans-serif;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    transition: all 0.2s;
-  }
-  .admin-btn:hover { background: rgba(255,255,255,0.1); color: #fff; }
-  .admin-btn.active { background: var(--accent); border-color: var(--accent); color: #fff; }
-  .edit-badge {
-    display: none;
-    background: var(--accent);
-    color: #fff;
-    font-size: 11px;
-    padding: 3px 10px;
-    border-radius: 20px;
-    font-weight: 500;
-  }
-  .edit-badge.visible { display: block; }
+/* NOTICE */
+.notice{background:var(--amber-bg);border:1px solid var(--amber-border);border-radius:var(--radius);padding:14px 18px;margin-bottom:2rem;display:flex;gap:12px;align-items:flex-start}
+.notice p{font-size:13px;color:var(--amber-text);line-height:1.7}
 
-  /* MAIN LAYOUT */
-  .main { max-width: 900px; margin: 0 auto; padding: 2.5rem 2rem 4rem; }
+/* SECTION LABEL */
+.section-label{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--text-faint);margin-bottom:10px;font-weight:500}
 
-  /* NOTICE BANNER */
-  .notice {
-    background: var(--amber-bg);
-    border: 1px solid var(--amber-border);
-    border-radius: var(--radius);
-    padding: 14px 18px;
-    margin-bottom: 2rem;
-    display: flex;
-    gap: 12px;
-    align-items: flex-start;
-  }
-  .notice-icon { font-size: 16px; color: var(--amber); margin-top: 1px; flex-shrink: 0; }
-  .notice p { font-size: 13px; color: var(--amber-text); line-height: 1.7; }
-  .notice strong { font-weight: 600; }
+/* CATEGORY TABS */
+.cat-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:2rem}
+.cat-btn{padding:10px 20px;border-radius:24px;border:1.5px solid var(--border-med);background:var(--surface);color:var(--text);font-size:13.5px;font-weight:500;font-family:'DM Sans',sans-serif;cursor:pointer;display:flex;align-items:center;gap:8px;transition:all .18s}
+.cat-btn:hover{border-color:var(--text)}
+.cat-btn.active{background:var(--text);color:#fff;border-color:var(--text)}
+.cat-btn svg{width:16px;height:16px;flex-shrink:0}
 
-  /* CATEGORY TABS */
-  .section-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-faint); margin-bottom: 10px; font-weight: 500; }
-  .cat-tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 2rem; }
-  .cat-btn {
-    padding: 10px 20px;
-    border-radius: 24px;
-    border: 1.5px solid var(--border-med);
-    background: var(--surface);
-    color: var(--text);
-    font-size: 13.5px;
-    font-weight: 500;
-    font-family: 'DM Sans', sans-serif;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    transition: all 0.18s;
-  }
-  .cat-btn:hover { border-color: var(--text); }
-  .cat-btn.active { background: var(--text); color: #fff; border-color: var(--text); }
-  .cat-btn svg { width: 16px; height: 16px; flex-shrink: 0; }
+/* PANELS */
+.panel{display:none}.panel.visible{display:block}
 
-  /* PANELS */
-  .panel { display: none; }
-  .panel.visible { display: block; }
+/* SUB NOTE */
+.sub-note{display:none;border-radius:var(--radius-sm);padding:11px 14px;margin-bottom:1.25rem;border-left:3px solid var(--red);background:var(--red-bg);gap:10px;align-items:flex-start;font-size:13px;color:var(--red-text);line-height:1.6}
+.sub-note.show{display:flex}
 
-  /* SUB NOTE */
-  .sub-note {
-    display: none;
-    border-radius: var(--radius-sm);
-    padding: 11px 14px;
-    margin-bottom: 1.25rem;
-    border-left: 3px solid var(--red);
-    background: var(--red-bg);
-    display: flex;
-    gap: 10px;
-    align-items: flex-start;
-    font-size: 13px;
-    color: var(--red-text);
-    line-height: 1.6;
-  }
-  .sub-note.hidden { display: none !important; }
+/* BUTTON ROWS */
+.sub-row,.ct-row,.st-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:1.25rem}
+.sub-btn{padding:8px 16px;border-radius:var(--radius-sm);border:1.5px solid var(--border-med);background:var(--surface);color:var(--text);font-size:13px;font-family:'DM Sans',sans-serif;cursor:pointer;display:flex;align-items:center;gap:6px;transition:all .15s;font-weight:400}
+.sub-btn:hover,.sub-btn.active{border-color:var(--text)}
+.sub-btn.active{background:var(--surface2);font-weight:500}
+.ct-btn,.st-btn{padding:8px 16px;border-radius:var(--radius-sm);border:1.5px solid var(--border-med);background:var(--surface);color:var(--text);font-size:13px;font-family:'DM Sans',sans-serif;cursor:pointer;transition:all .15s}
+.ct-btn:hover,.st-btn:hover,.ct-btn.active,.st-btn.active{border-color:var(--text)}
+.ct-btn.active,.st-btn.active{background:var(--surface2);font-weight:500}
+.st-btn{font-size:12.5px;color:var(--text-muted)}
+.st-btn.active{color:var(--text)}
 
-  /* SUB BUTTONS */
-  .sub-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 1.25rem; }
-  .sub-btn {
-    padding: 8px 16px;
-    border-radius: var(--radius-sm);
-    border: 1.5px solid var(--border-med);
-    background: var(--surface);
-    color: var(--text);
-    font-size: 13px;
-    font-family: 'DM Sans', sans-serif;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    transition: all 0.15s;
-    font-weight: 400;
-  }
-  .sub-btn:hover { border-color: var(--text); }
-  .sub-btn.active { background: var(--surface2); border-color: var(--text); font-weight: 500; }
-  .sub-btn svg { width: 15px; height: 15px; flex-shrink: 0; }
+/* ADD BUTTON */
+.add-btn{padding:7px 14px;border-radius:var(--radius-sm);border:1.5px dashed var(--border-med);background:transparent;color:var(--text-faint);font-size:12.5px;font-family:'DM Sans',sans-serif;cursor:pointer;display:none;align-items:center;gap:5px;transition:all .15s}
+.add-btn:hover{border-color:var(--blue);color:var(--blue)}
+.edit-mode .add-btn{display:flex}
 
-  /* CASE TYPE BUTTONS */
-  .ct-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 1.25rem; }
-  .ct-btn {
-    padding: 8px 16px;
-    border-radius: var(--radius-sm);
-    border: 1.5px solid var(--border-med);
-    background: var(--surface);
-    color: var(--text);
-    font-size: 13px;
-    font-family: 'DM Sans', sans-serif;
-    cursor: pointer;
-    transition: all 0.15s;
-  }
-  .ct-btn:hover { border-color: var(--text); }
-  .ct-btn.active { background: var(--surface2); border-color: var(--text); font-weight: 500; }
+/* INSTRUCTION CARD */
+.instruction-card{background:var(--surface);border:1.5px solid var(--border-med);border-radius:var(--radius);padding:1.5rem;animation:fadeIn .2s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+.instruction-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;padding-bottom:.75rem;border-bottom:1px solid var(--border)}
+.breadcrumb{font-size:12px;color:var(--text-faint);font-weight:500;text-transform:uppercase;letter-spacing:.05em}
+.instruction-actions{display:none;gap:6px}
+.edit-mode .instruction-actions{display:flex}
+.iaction-btn{background:var(--blue-bg);border:1px solid var(--blue-border);color:var(--blue-text);font-size:11.5px;padding:4px 12px;border-radius:20px;cursor:pointer;font-family:'DM Sans',sans-serif;font-weight:500;transition:all .15s}
+.iaction-btn:hover{background:var(--blue);color:#fff;border-color:var(--blue)}
+.iaction-btn.danger{background:var(--red-bg);border-color:var(--red-border);color:var(--red-text)}
+.iaction-btn.danger:hover{background:var(--red);color:#fff;border-color:var(--red)}
+.instruction-body{font-size:14px;line-height:1.7}
 
-  /* SUBTYPE BUTTONS */
-  .st-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 1.25rem; }
-  .st-btn {
-    padding: 7px 14px;
-    border-radius: var(--radius-sm);
-    border: 1.5px solid var(--border);
-    background: var(--surface);
-    color: var(--text-muted);
-    font-size: 12.5px;
-    font-family: 'DM Sans', sans-serif;
-    cursor: pointer;
-    transition: all 0.15s;
-  }
-  .st-btn:hover { border-color: var(--text); color: var(--text); }
-  .st-btn.active { background: var(--surface2); border-color: var(--text); color: var(--text); font-weight: 500; }
+/* INFO BOXES */
+.info-box{border-radius:var(--radius-sm);padding:12px 14px;margin-top:12px;font-size:13px;line-height:1.7}
+.info-box.blue{background:var(--blue-bg);border-left:3px solid var(--blue);color:var(--blue-text)}
+.info-box.red{background:var(--red-bg);border-left:3px solid var(--red);color:var(--red-text)}
+.info-box.amber{background:var(--amber-bg);border-left:3px solid var(--amber);color:var(--amber-text)}
+.info-box.red-full{background:var(--red-bg);border:1.5px solid var(--red-border);color:var(--red-text)}
+.info-box-title{font-weight:600;margin-bottom:4px;display:block}
+.info-box ul{padding-left:18px;margin-top:4px}
+.template-box{background:var(--surface2);border:1px solid var(--border-med);border-radius:var(--radius-sm);padding:14px;font-family:'DM Mono',monospace;font-size:12.5px;white-space:pre-wrap;line-height:1.8;color:var(--text);margin-top:8px}
 
-  /* INSTRUCTION CARD */
-  .instruction-card {
-    background: var(--surface);
-    border: 1.5px solid var(--border-med);
-    border-radius: var(--radius);
-    padding: 1.5rem;
-    animation: fadeIn 0.2s ease;
-  }
-  @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
-  .instruction-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 1rem;
-    padding-bottom: 0.75rem;
-    border-bottom: 1px solid var(--border);
-  }
-  .instruction-breadcrumb {
-    font-size: 12px;
-    color: var(--text-faint);
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-  }
-  .edit-field-btn {
-    display: none;
-    background: var(--blue-bg);
-    border: 1px solid var(--blue-border);
-    color: var(--blue-text);
-    font-size: 11.5px;
-    padding: 4px 12px;
-    border-radius: 20px;
-    cursor: pointer;
-    font-family: 'DM Sans', sans-serif;
-    font-weight: 500;
-    transition: all 0.15s;
-  }
-  .edit-field-btn:hover { background: var(--blue); color: #fff; border-color: var(--blue); }
-  .edit-mode .edit-field-btn { display: block; }
-  .instruction-body { font-size: 14px; line-height: 1.7; }
+/* PARTNER / TAX */
+.step-list{display:grid;gap:10px}
+.step-item{display:flex;gap:14px;align-items:flex-start;padding:14px 16px;background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius)}
+.step-num{min-width:28px;height:28px;border-radius:50%;background:var(--blue-bg);border:1.5px solid var(--blue-border);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;color:var(--blue-text);flex-shrink:0}
+.step-title{font-size:14px;font-weight:500;margin-bottom:3px}
+.step-body{font-size:13px;color:var(--text-muted);line-height:1.6}
+.subject-pill{display:inline-flex;align-items:center;gap:8px;padding:7px 14px;background:var(--surface2);border:1px solid var(--border-med);border-radius:var(--radius-sm);font-size:13px;font-weight:500;margin-top:6px}
+.scenario-tabs{display:flex;gap:8px;margin-bottom:1.25rem;flex-wrap:wrap}
+.sc-btn{padding:8px 18px;border-radius:20px;border:1.5px solid var(--border-med);background:var(--surface);color:var(--text);font-size:13px;font-weight:500;font-family:'DM Sans',sans-serif;cursor:pointer;transition:all .15s}
+.sc-btn.active{background:var(--text);color:#fff;border-color:var(--text)}
+.flow{display:grid;gap:0}
+.flow-step{padding:13px 16px;border-radius:var(--radius-sm);border:1.5px solid var(--border);background:var(--surface2);font-size:13px;line-height:1.6}
+.flow-step.start{background:var(--amber-bg);border-color:var(--amber-border);color:var(--amber-text);text-align:center;font-weight:500}
+.flow-step.end{background:var(--green-bg);border-color:var(--green-border);color:var(--green-text);text-align:center;font-weight:500}
+.flow-step.danger{background:var(--red-bg);border-color:var(--red-border);color:var(--red-text)}
+.flow-arrow{display:flex;justify-content:center;padding:3px 0;color:var(--text-faint);font-size:18px}
+.no-docusign{color:var(--red);font-weight:600;margin-top:6px;font-size:13px}
 
-  /* INFO BOXES */
-  .info-box {
-    border-radius: var(--radius-sm);
-    padding: 12px 14px;
-    margin-top: 12px;
-    font-size: 13px;
-    line-height: 1.7;
-  }
-  .info-box.blue { background: var(--blue-bg); border-left: 3px solid var(--blue); color: var(--blue-text); }
-  .info-box.red { background: var(--red-bg); border-left: 3px solid var(--red); color: var(--red-text); }
-  .info-box.amber { background: var(--amber-bg); border-left: 3px solid var(--amber); color: var(--amber-text); }
-  .info-box.red-full { background: var(--red-bg); border: 1.5px solid var(--red-border); color: var(--red-text); }
-  .info-box.green { background: var(--green-bg); border-left: 3px solid var(--green); color: var(--green-text); }
-  .info-box-title { font-weight: 600; margin-bottom: 4px; display: block; }
-  .info-box ul { padding-left: 18px; margin-top: 4px; }
-  .info-box ul li { margin-bottom: 2px; }
+/* ── ADMIN PANEL ── */
+.admin-panel{display:none;position:fixed;top:56px;right:0;bottom:0;width:420px;background:var(--surface);border-left:1.5px solid var(--border-med);overflow-y:auto;z-index:90;box-shadow:-4px 0 24px rgba(0,0,0,.08)}
+.admin-panel.open{display:flex;flex-direction:column}
+.ap-header{padding:1.25rem 1.5rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;background:var(--surface);position:sticky;top:0;z-index:2}
+.ap-title{font-size:14px;font-weight:600}
+.ap-close{background:none;border:none;cursor:pointer;color:var(--text-muted);font-size:20px;line-height:1;padding:2px 6px;border-radius:4px}
+.ap-close:hover{background:var(--surface2)}
+.ap-body{padding:1.25rem 1.5rem;flex:1}
+.ap-section{margin-bottom:1.75rem}
+.ap-section-title{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--text-faint);font-weight:600;margin-bottom:10px}
+.ap-cat-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:1.25rem}
+.ap-cat-btn{padding:6px 14px;border-radius:20px;border:1.5px solid var(--border-med);background:transparent;color:var(--text-muted);font-size:12px;font-family:'DM Sans',sans-serif;cursor:pointer;transition:all .15s}
+.ap-cat-btn.active{background:var(--text);color:#fff;border-color:var(--text)}
 
-  /* TEMPLATE BOX */
-  .template-box {
-    background: var(--surface2);
-    border: 1px solid var(--border-med);
-    border-radius: var(--radius-sm);
-    padding: 14px;
-    font-family: 'DM Mono', monospace;
-    font-size: 12.5px;
-    white-space: pre-wrap;
-    line-height: 1.8;
-    color: var(--text);
-    margin-top: 8px;
-  }
+/* AP ITEMS */
+.ap-item{display:flex;align-items:center;justify-content:space-between;padding:9px 12px;border-radius:var(--radius-sm);border:1.5px solid var(--border);background:var(--surface2);margin-bottom:6px;cursor:pointer;transition:all .15s}
+.ap-item:hover{border-color:var(--border-med)}
+.ap-item.selected{border-color:var(--text);background:var(--surface)}
+.ap-item-name{font-size:13px;font-weight:500}
+.ap-item-actions{display:flex;gap:4px}
+.ap-icon-btn{background:none;border:none;cursor:pointer;padding:3px 6px;border-radius:4px;font-size:13px;color:var(--text-muted);transition:all .15s;font-family:'DM Sans',sans-serif}
+.ap-icon-btn:hover{background:var(--surface2);color:var(--text)}
+.ap-icon-btn.del:hover{background:var(--red-bg);color:var(--red)}
 
-  /* TAX STEPS */
-  .step-list { display: grid; gap: 10px; }
-  .step-item {
-    display: flex;
-    gap: 14px;
-    align-items: flex-start;
-    padding: 14px 16px;
-    background: var(--surface);
-    border: 1.5px solid var(--border);
-    border-radius: var(--radius);
-  }
-  .step-num {
-    min-width: 28px; height: 28px;
-    border-radius: 50%;
-    background: var(--blue-bg);
-    border: 1.5px solid var(--blue-border);
-    display: flex; align-items: center; justify-content: center;
-    font-size: 13px; font-weight: 600; color: var(--blue-text);
-    flex-shrink: 0;
-  }
-  .step-title { font-size: 14px; font-weight: 500; margin-bottom: 3px; }
-  .step-body { font-size: 13px; color: var(--text-muted); line-height: 1.6; }
-  .subject-pill {
-    display: inline-flex; align-items: center; gap: 8px;
-    padding: 7px 14px;
-    background: var(--surface2);
-    border: 1px solid var(--border-med);
-    border-radius: var(--radius-sm);
-    font-size: 13px; font-weight: 500;
-  }
+/* AP ADD FORM */
+.ap-add-form{display:flex;gap:6px;margin-top:8px}
+.ap-input{flex:1;padding:8px 12px;border:1.5px solid var(--border-med);border-radius:var(--radius-sm);font-size:13px;font-family:'DM Sans',sans-serif;outline:none;transition:border-color .15s}
+.ap-input:focus{border-color:var(--text)}
+.ap-add-submit{padding:8px 14px;border-radius:var(--radius-sm);background:var(--text);color:#fff;border:none;font-size:13px;font-family:'DM Sans',sans-serif;font-weight:500;cursor:pointer;white-space:nowrap}
+.ap-add-submit:hover{background:#333}
 
-  /* PARTNER FLOW */
-  .scenario-tabs { display: flex; gap: 8px; margin-bottom: 1.25rem; flex-wrap: wrap; }
-  .sc-btn {
-    padding: 8px 18px;
-    border-radius: 20px;
-    border: 1.5px solid var(--border-med);
-    background: var(--surface);
-    color: var(--text);
-    font-size: 13px; font-weight: 500;
-    font-family: 'DM Sans', sans-serif;
-    cursor: pointer;
-    transition: all 0.15s;
-  }
-  .sc-btn.active { background: var(--text); color: #fff; border-color: var(--text); }
-  .flow { display: grid; gap: 0; }
-  .flow-step {
-    padding: 13px 16px;
-    border-radius: var(--radius-sm);
-    border: 1.5px solid var(--border);
-    background: var(--surface2);
-    font-size: 13px; line-height: 1.6;
-  }
-  .flow-step.start { background: var(--amber-bg); border-color: var(--amber-border); color: var(--amber-text); text-align: center; font-weight: 500; }
-  .flow-step.end { background: var(--green-bg); border-color: var(--green-border); color: var(--green-text); text-align: center; font-weight: 500; }
-  .flow-step.danger { background: var(--red-bg); border-color: var(--red-border); color: var(--red-text); }
-  .flow-arrow { display: flex; justify-content: center; padding: 3px 0; color: var(--text-faint); font-size: 18px; }
-  .no-docusign { color: var(--red); font-weight: 600; margin-top: 6px; font-size: 13px; }
+/* AP TEXTAREA */
+.ap-textarea{width:100%;min-height:180px;padding:10px 12px;border:1.5px solid var(--border-med);border-radius:var(--radius-sm);font-size:12.5px;font-family:'DM Mono',monospace;outline:none;resize:vertical;transition:border-color .15s;line-height:1.6;margin-top:6px}
+.ap-textarea:focus{border-color:var(--text)}
+.ap-save-btn{margin-top:8px;padding:9px 18px;border-radius:var(--radius-sm);background:var(--text);color:#fff;border:none;font-size:13px;font-family:'DM Sans',sans-serif;font-weight:500;cursor:pointer;width:100%}
+.ap-save-btn:hover{background:#333}
+.ap-hint{font-size:11.5px;color:var(--text-faint);margin-top:4px;line-height:1.5}
 
-  /* MODAL */
-  .modal-overlay {
-    display: none;
-    position: fixed; inset: 0;
-    background: rgba(0,0,0,0.5);
-    z-index: 200;
-    align-items: center;
-    justify-content: center;
-  }
-  .modal-overlay.open { display: flex; }
-  .modal {
-    background: var(--surface);
-    border-radius: var(--radius);
-    padding: 2rem;
-    width: 360px;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.2);
-  }
-  .modal h3 { font-size: 16px; font-weight: 600; margin-bottom: 6px; }
-  .modal p { font-size: 13px; color: var(--text-muted); margin-bottom: 1.25rem; }
-  .modal input {
-    width: 100%;
-    padding: 10px 14px;
-    border: 1.5px solid var(--border-med);
-    border-radius: var(--radius-sm);
-    font-size: 14px;
-    font-family: 'DM Sans', sans-serif;
-    margin-bottom: 12px;
-    outline: none;
-    transition: border-color 0.15s;
-  }
-  .modal input:focus { border-color: var(--text); }
-  .modal-btns { display: flex; gap: 8px; }
-  .modal-btn {
-    flex: 1;
-    padding: 10px;
-    border-radius: var(--radius-sm);
-    font-size: 13px;
-    font-weight: 500;
-    font-family: 'DM Sans', sans-serif;
-    cursor: pointer;
-    border: 1.5px solid var(--border-med);
-    background: var(--surface);
-    transition: all 0.15s;
-  }
-  .modal-btn.primary { background: var(--text); color: #fff; border-color: var(--text); }
-  .modal-btn.primary:hover { background: #333; }
-  .modal-error { font-size: 12px; color: var(--red); margin-bottom: 8px; display: none; }
+/* AP NOTE EDIT */
+.ap-note-label{font-size:12px;color:var(--text-muted);margin-bottom:4px}
 
-  /* EDIT TEXTAREA MODAL */
-  .edit-modal { width: 560px; }
-  .edit-modal textarea {
-    width: 100%;
-    min-height: 200px;
-    padding: 10px 14px;
-    border: 1.5px solid var(--border-med);
-    border-radius: var(--radius-sm);
-    font-size: 13px;
-    font-family: 'DM Mono', monospace;
-    margin-bottom: 12px;
-    outline: none;
-    resize: vertical;
-    transition: border-color 0.15s;
-    line-height: 1.6;
-  }
-  .edit-modal textarea:focus { border-color: var(--text); }
-
-  /* DIVIDER */
-  .divider { height: 1px; background: var(--border); margin: 1.5rem 0; }
-
-  strong { font-weight: 600; }
+/* MODAL (login) */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:200;align-items:center;justify-content:center}
+.modal-overlay.open{display:flex}
+.modal{background:var(--surface);border-radius:var(--radius);padding:2rem;width:360px;box-shadow:0 20px 60px rgba(0,0,0,.2)}
+.modal h3{font-size:16px;font-weight:600;margin-bottom:6px}
+.modal p{font-size:13px;color:var(--text-muted);margin-bottom:1.25rem}
+.modal input{width:100%;padding:10px 14px;border:1.5px solid var(--border-med);border-radius:var(--radius-sm);font-size:14px;font-family:'DM Sans',sans-serif;margin-bottom:12px;outline:none;transition:border-color .15s}
+.modal input:focus{border-color:var(--text)}
+.modal-btns{display:flex;gap:8px}
+.modal-btn{flex:1;padding:10px;border-radius:var(--radius-sm);font-size:13px;font-weight:500;font-family:'DM Sans',sans-serif;cursor:pointer;border:1.5px solid var(--border-med);background:var(--surface);transition:all .15s}
+.modal-btn.primary{background:var(--text);color:#fff;border-color:var(--text)}
+.modal-btn.primary:hover{background:#333}
+.modal-error{font-size:12px;color:var(--red);margin-bottom:8px;display:none}
+strong{font-weight:600}
+.divider{height:1px;background:var(--border);margin:.75rem 0}
 </style>
 </head>
 <body>
@@ -438,99 +196,117 @@
   </div>
 </div>
 
-<!-- EDIT CONTENT MODAL -->
-<div class="modal-overlay" id="edit-modal">
-  <div class="modal edit-modal">
-    <h3>Edit instructions</h3>
-    <p>Edit the HTML content for this case. Use &lt;strong&gt; for bold, &lt;br&gt; for line breaks.</p>
-    <textarea id="edit-textarea"></textarea>
-    <p class="modal-error" id="edit-error"></p>
-    <div class="modal-btns">
-      <button class="modal-btn" onclick="closeEdit()">Cancel</button>
-      <button class="modal-btn primary" onclick="saveEdit()">Save</button>
+<!-- ADMIN SIDE PANEL -->
+<div class="admin-panel" id="admin-panel">
+  <div class="ap-header">
+    <span class="ap-title">⚙ Admin Panel</span>
+    <button class="ap-close" onclick="closeAdminPanel()">×</button>
+  </div>
+  <div class="ap-body">
+
+    <!-- CATEGORY SELECT -->
+    <div class="ap-section">
+      <p class="ap-section-title">Editing category</p>
+      <div class="ap-cat-tabs">
+        <button class="ap-cat-btn active" id="ap-cat-internal" onclick="apSelectCat('internal')">Internal case</button>
+        <button class="ap-cat-btn" id="ap-cat-support" onclick="apSelectCat('support')">Support case</button>
+      </div>
     </div>
+
+    <!-- SUBCATEGORIES -->
+    <div class="ap-section">
+      <p class="ap-section-title">Subcategories</p>
+      <div id="ap-sub-list"></div>
+      <div class="ap-add-form">
+        <input class="ap-input" id="ap-new-sub" placeholder="New subcategory name…">
+        <button class="ap-add-submit" onclick="apAddSub()">Add</button>
+      </div>
+    </div>
+
+    <!-- SUBCATEGORY NOTE -->
+    <div class="ap-section" id="ap-note-section" style="display:none">
+      <p class="ap-section-title">Subcategory warning note</p>
+      <p class="ap-note-label">Leave blank for no warning. Use &lt;strong&gt; for bold.</p>
+      <textarea class="ap-textarea" id="ap-note-text" style="min-height:80px" placeholder="e.g. Make sure the request is being made 30 days or more prior…"></textarea>
+      <button class="ap-save-btn" onclick="apSaveNote()">Save note</button>
+    </div>
+
+    <!-- CASE TYPES -->
+    <div class="ap-section" id="ap-ct-section" style="display:none">
+      <p class="ap-section-title">Case types — <span id="ap-ct-sub-label" style="text-transform:none;letter-spacing:0;font-weight:500;color:var(--text-muted)"></span></p>
+      <div id="ap-ct-list"></div>
+      <div class="ap-add-form">
+        <input class="ap-input" id="ap-new-ct" placeholder="New case type name…">
+        <button class="ap-add-submit" onclick="apAddCT()">Add</button>
+      </div>
+    </div>
+
+    <!-- SUBTYPES -->
+    <div class="ap-section" id="ap-st-section" style="display:none">
+      <p class="ap-section-title">Subtypes — <span id="ap-st-ct-label" style="text-transform:none;letter-spacing:0;font-weight:500;color:var(--text-muted)"></span></p>
+      <div id="ap-st-list"></div>
+      <div class="ap-add-form">
+        <input class="ap-input" id="ap-new-st" placeholder="New subtype name…">
+        <button class="ap-add-submit" onclick="apAddST()">Add</button>
+      </div>
+    </div>
+
+    <!-- INSTRUCTIONS EDITOR -->
+    <div class="ap-section" id="ap-inst-section" style="display:none">
+      <p class="ap-section-title">Instructions — <span id="ap-inst-label" style="text-transform:none;letter-spacing:0;font-weight:500;color:var(--text-muted)"></span></p>
+      <p class="ap-hint">Use HTML: &lt;strong&gt;bold&lt;/strong&gt;, &lt;br&gt; for line break. Add info boxes with &lt;div class="info-box blue"&gt;…&lt;/div&gt; (blue/red/amber). For templates use &lt;div class="template-box"&gt;…&lt;/div&gt;</p>
+      <textarea class="ap-textarea" id="ap-inst-text" placeholder="Enter instruction HTML here…"></textarea>
+      <button class="ap-save-btn" onclick="apSaveInst()">Save instructions</button>
+    </div>
+
   </div>
 </div>
 
-<!-- MAIN -->
-<main class="main">
+<!-- MAIN CONTENT -->
+<main class="main" id="main-content">
 
-  <!-- UNIVERSAL NOTICE -->
   <div class="notice">
-    <svg class="notice-icon" viewBox="0 0 20 20" fill="currentColor" width="18" height="18"><path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"/><path fill-rule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z" clip-rule="evenodd"/></svg>
+    <svg viewBox="0 0 20 20" fill="currentColor" width="18" height="18" style="flex-shrink:0;margin-top:1px;color:var(--amber)"><path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"/><path fill-rule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z" clip-rule="evenodd"/></svg>
     <p><strong>Every case must include:</strong> the <strong>Universal ID</strong>, the correct <strong>account information</strong>, and a full <strong>description of the request</strong>.</p>
   </div>
 
-  <!-- CATEGORY TABS -->
   <p class="section-label">Select a category</p>
   <div class="cat-tabs">
-    <button class="cat-btn" onclick="selectCat('internal')">
+    <button class="cat-btn" onclick="selectCat('internal',this)">
       <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M4 4a2 2 0 012-2h8a2 2 0 012 2v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4zm3 1h2v2H7V5zm0 4h2v2H7V9zm0 4h2v2H7v-2zm4-8h2v2h-2V5zm0 4h2v2h-2V9zm0 4h2v2h-2v-2z" clip-rule="evenodd"/></svg>
       Internal case
     </button>
-    <button class="cat-btn" onclick="selectCat('support')">
+    <button class="cat-btn" onclick="selectCat('support',this)">
       <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-2 0c0 .993-.241 1.929-.668 2.754l-1.524-1.525a3.997 3.997 0 00.078-2.183l1.562-1.562C15.802 8.249 16 9.1 16 10zm-5.165 3.913l1.58 1.58A5.98 5.98 0 0110 16a5.976 5.976 0 01-2.516-.552l1.562-1.562a4.006 4.006 0 001.789.027zm-4.677-2.796a4.002 4.002 0 01-.041-2.08l-.08.08-1.53-1.533A5.98 5.98 0 004 10c0 .954.223 1.856.619 2.657l1.54-1.54zm1.088-6.45A5.974 5.974 0 0110 4c.954 0 1.856.223 2.657.619l-1.54 1.54a4.002 4.002 0 00-2.346.033L7.246 4.668z" clip-rule="evenodd"/></svg>
       Support case
     </button>
-    <button class="cat-btn" onclick="selectCat('tax')">
+    <button class="cat-btn" onclick="selectCat('tax',this)">
       <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z" clip-rule="evenodd"/></svg>
       Tax exempt process
     </button>
-    <button class="cat-btn" onclick="selectCat('partner')">
+    <button class="cat-btn" onclick="selectCat('partner',this)">
       <svg viewBox="0 0 20 20" fill="currentColor"><path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v1h8v-1zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-1a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v1h-3zM4.75 14.094A5.973 5.973 0 004 17v1H1v-1a3 3 0 013.75-2.906z"/></svg>
       Partner process
     </button>
   </div>
 
-  <!-- INTERNAL / SUPPORT PANEL -->
   <div class="panel" id="panel-internal"></div>
   <div class="panel" id="panel-support"></div>
 
   <!-- TAX PANEL -->
   <div class="panel" id="panel-tax">
     <div class="step-list">
-      <div class="step-item">
-        <div class="step-num">1</div>
-        <div>
-          <p class="step-title">Get the tax certificate</p>
-          <p class="step-body">Request and obtain the tax exemption certificate from the customer before proceeding.</p>
-        </div>
-      </div>
-      <div class="step-item">
-        <div class="step-num">2</div>
-        <div>
-          <p class="step-title">Forward the certificate via email</p>
-          <p class="step-body">Send the certificate to <strong>LastPassTax@lastpass.com</strong></p>
-        </div>
-      </div>
-      <div class="step-item">
-        <div class="step-num">3</div>
-        <div>
-          <p class="step-title">Use this subject line</p>
-          <div class="subject-pill" style="margin-top:6px;">
-            <svg viewBox="0 0 20 20" fill="currentColor" width="14" height="14"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/><path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/></svg>
-            Tax exempt request
-          </div>
-        </div>
-      </div>
-      <div class="step-item">
-        <div class="step-num">4</div>
-        <div style="width:100%">
-          <p class="step-title">Use this email description</p>
-          <div class="template-box">Hi Team,
+      <div class="step-item"><div class="step-num">1</div><div><p class="step-title">Get the tax certificate</p><p class="step-body">Request and obtain the tax exemption certificate from the customer before proceeding.</p></div></div>
+      <div class="step-item"><div class="step-num">2</div><div><p class="step-title">Forward the certificate via email</p><p class="step-body">Send the certificate to <strong>LastPassTax@lastpass.com</strong></p></div></div>
+      <div class="step-item"><div class="step-num">3</div><div><p class="step-title">Use this subject line</p><div class="subject-pill"><svg viewBox="0 0 20 20" fill="currentColor" width="14" height="14"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/><path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/></svg>Tax exempt request</div></div></div>
+      <div class="step-item"><div class="step-num">4</div><div style="width:100%"><p class="step-title">Use this email description</p><div class="template-box">Hi Team,
 
 I'm requesting tax-exempt status on behalf of our customer. Kindly see the details below. If any additional information is needed, please let me know. Thank you for your assistance!
 
 • Customer's full name
 • Phone number
 • Email address
-• UID or Zuora ID</div>
-          <div class="info-box blue" style="margin-top:10px; display:flex; gap:8px; align-items:flex-start;">
-            <svg viewBox="0 0 20 20" fill="currentColor" width="15" height="15" style="flex-shrink:0;margin-top:2px"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/></svg>
-            <p style="font-size:12.5px;"><strong>Finding the Zuora ID:</strong> It can be found in the URL slug — for example: <code style="font-family:'DM Mono',monospace; font-size:11px; background:rgba(0,0,0,0.05); padding:1px 5px; border-radius:3px;">8a369a319d980459019db6896ada795f</code></p>
-          </div>
-        </div>
-      </div>
+• UID or Zuora ID</div><div class="info-box blue" style="display:flex;gap:8px;align-items:flex-start;margin-top:10px"><svg viewBox="0 0 20 20" fill="currentColor" width="15" height="15" style="flex-shrink:0;margin-top:2px"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/></svg><p style="font-size:12.5px"><strong>Finding the Zuora ID:</strong> It can be found in the URL slug — for example: <code style="font-family:'DM Mono',monospace;font-size:11px;background:rgba(0,0,0,.05);padding:1px 5px;border-radius:3px">8a369a319d980459019db6896ada795f</code></p></div></div></div>
     </div>
   </div>
 
@@ -542,33 +318,21 @@ I'm requesting tax-exempt status on behalf of our customer. Kindly see the detai
     </div>
     <div id="scenario-1" class="flow">
       <div class="flow-step start">START: Create the opportunity under the <strong>customer-end account</strong> (not the partner).</div>
-      <div class="flow-arrow">↓</div>
-      <div class="flow-step">Record <strong>all</strong> Partner and Representative details in both the Quote and the Opportunity.</div>
-      <div class="flow-arrow">↓</div>
-      <div class="flow-step">Create the Quote. Set the billing contact to the <strong>Partner Representative</strong>, and set the primary contact to the <strong>customer-end primary contact</strong>.</div>
-      <div class="flow-arrow">↓</div>
-      <div class="flow-step">Check the distributor and partner/reseller discounts — there is <strong>always a discount that applies</strong>.</div>
-      <div class="flow-arrow">↓</div>
-      <div class="flow-step">Save the Quote as a PDF and email it to the Partner Representative.<p class="no-docusign">⚠ Do NOT send it via DocuSign.</p></div>
-      <div class="flow-arrow">↓</div>
-      <div class="flow-step">Once the Partner Representative approves the Quote, they send the PO number. Upload the PO file to the Opportunity and enter the PO number.</div>
-      <div class="flow-arrow">↓</div>
-      <div class="flow-step end">END: Complete all required information. Always double-check the <strong>Partner Details, Partner Representative, Quote, and PO number</strong>.</div>
+      <div class="flow-arrow">↓</div><div class="flow-step">Record <strong>all</strong> Partner and Representative details in both the Quote and the Opportunity.</div>
+      <div class="flow-arrow">↓</div><div class="flow-step">Create the Quote. Set the billing contact to the <strong>Partner Representative</strong>, and set the primary contact to the <strong>customer-end primary contact</strong>.</div>
+      <div class="flow-arrow">↓</div><div class="flow-step">Check the distributor and partner/reseller discounts — there is <strong>always a discount that applies</strong>.</div>
+      <div class="flow-arrow">↓</div><div class="flow-step">Save the Quote as a PDF and email it to the Partner Representative.<p class="no-docusign">⚠ Do NOT send it via DocuSign.</p></div>
+      <div class="flow-arrow">↓</div><div class="flow-step">Once the Partner Representative approves the Quote, they send the PO number. Upload the PO file to the Opportunity and enter the PO number.</div>
+      <div class="flow-arrow">↓</div><div class="flow-step end">END: Complete all required information. Always double-check the <strong>Partner Details, Partner Representative, Quote, and PO number</strong>.</div>
     </div>
-    <div id="scenario-2" class="flow" style="display:none;">
+    <div id="scenario-2" class="flow" style="display:none">
       <div class="flow-step start">START: Decision — Is there a Partner or Reseller involved?</div>
-      <div class="flow-arrow">↓</div>
-      <div class="flow-step danger"><strong>If NO partner/reseller:</strong> create the Opportunity and Quote directly under the customer-end account.</div>
-      <div class="flow-arrow">↓</div>
-      <div class="flow-step"><strong>If YES:</strong> record <strong>all</strong> Distributor, Partner/Reseller, and Partner Representative details in both the Quote and the Opportunity.</div>
-      <div class="flow-arrow">↓</div>
-      <div class="flow-step">Create the Quote. Set the billing contact to the <strong>Partner Representative</strong>, and set the primary contact to the <strong>customer-end primary contact</strong>.</div>
-      <div class="flow-arrow">↓</div>
-      <div class="flow-step">Check the distributor and partner/reseller discounts — there is <strong>always a discount that applies</strong>.</div>
-      <div class="flow-arrow">↓</div>
-      <div class="flow-step">Save the Quote as a PDF and email it to the Partner Representative.<p class="no-docusign">⚠ Do NOT send it via DocuSign.</p><br>Once approved, they send the PO number — upload the PO file to the Opportunity and enter the PO number.</div>
-      <div class="flow-arrow">↓</div>
-      <div class="flow-step end">END: Complete all required information. Always double-check the <strong>Partner Details, Partner Representative, Quote, and PO number</strong>.</div>
+      <div class="flow-arrow">↓</div><div class="flow-step danger"><strong>If NO partner/reseller:</strong> create the Opportunity and Quote directly under the customer-end account.</div>
+      <div class="flow-arrow">↓</div><div class="flow-step"><strong>If YES:</strong> record <strong>all</strong> Distributor, Partner/Reseller, and Partner Representative details in both the Quote and the Opportunity.</div>
+      <div class="flow-arrow">↓</div><div class="flow-step">Create the Quote. Set the billing contact to the <strong>Partner Representative</strong>, and set the primary contact to the <strong>customer-end primary contact</strong>.</div>
+      <div class="flow-arrow">↓</div><div class="flow-step">Check the distributor and partner/reseller discounts — there is <strong>always a discount that applies</strong>.</div>
+      <div class="flow-arrow">↓</div><div class="flow-step">Save the Quote as a PDF and email it to the Partner Representative.<p class="no-docusign">⚠ Do NOT send it via DocuSign.</p><br>Once approved, they send the PO number — upload the PO file to the Opportunity and enter the PO number.</div>
+      <div class="flow-arrow">↓</div><div class="flow-step end">END: Complete all required information. Always double-check the <strong>Partner Details, Partner Representative, Quote, and PO number</strong>.</div>
     </div>
   </div>
 
@@ -577,266 +341,363 @@ I'm requesting tax-exempt status on behalf of our customer. Kindly see the detai
 <script>
 const PASS = 'Naizah@030';
 let isAdmin = false;
-let editTarget = null;
+let apState = { cat: 'internal', sub: null, ct: null };
 
-// ─── DATA ───────────────────────────────────────────────────────────────────
+// ── DATA ────────────────────────────────────────────────────────────────────
 const data = {
-  internal: {
-    subs: {
-      "Renewals — Salesforce managed": {
-        icon: `<svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z" clip-rule="evenodd"/></svg>`,
-        note: `<svg viewBox="0 0 20 20" fill="currentColor" width="15" height="15" style="flex-shrink:0;margin-top:1px"><path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/></svg> Make sure the request is being made <strong>30 days or more prior to the renewal date</strong>. Otherwise, it will be rejected.`,
-        caseTypes: {
-          "Renewal request": `<p>Create your <strong>subject</strong> and <strong>description</strong> for this case.</p><div class="info-box blue" style="margin-top:12px"><span class="info-box-title">Important note</span>Create this internal case <strong>only if the renewal is within 90 days</strong>.<br><br>If the renewal is <strong>more than 90 days out</strong>, it is considered <strong>New Business</strong> — create a new business opportunity instead.</div>`,
-          "Reduce licenses": `<p>Create your <strong>subject</strong> and <strong>description</strong> for this case.</p>`,
-          "Cancel subscription": `<p>Create your <strong>subject</strong> and <strong>description</strong> for this case.</p>`,
-          "Cancel invoice": `<p>Create your <strong>subject</strong> and <strong>description</strong> for this case.</p><div class="info-box red" style="margin-top:12px"><span class="info-box-title">Important</span>If the invoice has <strong>already been paid</strong>, do not submit here — submit to <strong>Customer Payment Support</strong> instead.</div>`,
-          "Downgrade subscription": `<p>Create your <strong>subject</strong> and <strong>description</strong> for this case.</p>`,
-          "BOSS to SF migration": `<p>Create your <strong>subject</strong> and <strong>description</strong> for this case.</p><div class="info-box red-full" style="margin-top:12px"><div style="display:flex;align-items:center;gap:8px;margin-bottom:8px"><svg viewBox="0 0 20 20" fill="currentColor" width="16" height="16" style="flex-shrink:0"><path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/></svg><strong>Only follow this process if the customer agrees to all of the following</strong></div><ul><li>Customers will <strong>no longer be able to purchase online</strong>. They must always go through a sales rep, renewals rep, or support.</li><li>The customer's <strong>credit card will not be saved</strong>, nor will the system autopay like it does in BOSS.</li><li>Customer will be <strong>unable to purchase add-ons or adjust license count</strong> through the Admin Console.</li><li>There is a <strong>12-month minimum requirement</strong> for subscriptions.</li></ul></div>`
-        }
-      },
-      "Billing": {
-        icon: `<svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M4 4a2 2 0 00-2 2v4a2 2 0 002 2V6h10a2 2 0 00-2-2H4zm2 6a2 2 0 012-2h8a2 2 0 012 2v4a2 2 0 01-2 2H8a2 2 0 01-2-2v-4zm6 4a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/></svg>`,
-        note: null,
-        subtypes: { "Zuora account management": ["Zuora trial extension","Upgrade plan Zuora manage account","Zuora account cancellation","Zuora auto renewal disablement","Zuora refund request","Zuora billing information updates"] },
-        caseTypes: {
-          "Zuora account management": `<p>Create your <strong>subject</strong> and <strong>description</strong> for this case.</p>`
-        }
-      },
-      "Revenue operations": {
-        icon: `<svg viewBox="0 0 20 20" fill="currentColor"><path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z"/></svg>`,
-        note: null,
-        caseTypes: {
-          "Missing licenses": `<p>Create your <strong>subject</strong> and <strong>description</strong> for this case.</p><div class="info-box blue" style="margin-top:12px"><span class="info-box-title">Use this case type when</span>The purchased licenses are <strong>not reflecting on the customer's end</strong> — the actual license count does not match what was provisioned.</div>`
-        }
-      },
-      "General questions": {
-        icon: `<svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"/></svg>`,
-        note: null,
-        caseTypes: {
-          "Merge accounts": `<p style="margin-bottom:8px">Use the description template below for merge account requests.</p><div class="template-box">Hi Team,
-
-I'm requesting assistance with merging the two contacts [FDC IT]. Please let me know if you need any additional details from my end. Thank you!
-
-Info to keep:
-Name: FDC IT
-Contact: (559) 213-2177
-Email: it_master@fresnodiscoverycenter.org</div>`,
-          "Re-route to another AE": `<div class="info-box amber" style="margin-top:12px;margin-bottom:12px"><span class="info-box-title">When to re-route</span>Re-route to another AE if the employee size is <strong>more than 50</strong>.</div><p style="margin-bottom:8px">Use this description template:</p><div class="template-box">Hi team,
-
-Requesting to re-route this contact out of name as the employee size is more than 49 and it is out of our scope.</div>`
-        }
-      },
-      "Customer payment support": {
-        icon: `<svg viewBox="0 0 20 20" fill="currentColor"><path d="M4 4a2 2 0 00-2 2v1h16V6a2 2 0 00-2-2H4z"/><path fill-rule="evenodd" d="M18 9H2v5a2 2 0 002 2h12a2 2 0 002-2V9zM4 13a1 1 0 011-1h1a1 1 0 110 2H5a1 1 0 01-1-1zm5-1a1 1 0 100 2h1a1 1 0 100-2H9z" clip-rule="evenodd"/></svg>`,
-        note: null,
-        caseTypes: {
-          "Refunds — invoice / wire transfer": `<p>Create your <strong>subject</strong> and <strong>description</strong> for this case.</p><div class="info-box blue" style="margin-top:12px"><span class="info-box-title">Scope</span>For refunds on transactions made via <strong>invoice or wire transfer</strong> on <strong>SF-managed accounts</strong> only.</div>`,
-          "Unban invoiced account": `<p>Create your <strong>subject</strong> and <strong>description</strong> for this case.</p><div class="info-box blue" style="margin-top:12px;display:flex;gap:8px;align-items:flex-start"><svg viewBox="0 0 20 20" fill="currentColor" width="15" height="15" style="flex-shrink:0;margin-top:2px"><path fill-rule="evenodd" d="M6 2a2 2 0 00-2 2v12a2 2 0 002 2h8a2 2 0 002-2V7.414A2 2 0 0015.414 6L12 2.586A2 2 0 0010.586 2H6zm5 6a1 1 0 10-2 0v3.586l-1.293-1.293a1 1 0 10-1.414 1.414l3 3a1 1 0 001.414 0l3-3a1 1 0 00-1.414-1.414L11 11.586V8z" clip-rule="evenodd"/></svg><p><strong>Proof of Payment (PoP)</strong> must be provided by the customer. Use this to <strong>remove a BAN for non-payment</strong> on SF-managed accounts.</p></div>`,
-          "Vendor form assistance": `<p>Create your <strong>subject</strong> and <strong>description</strong> for this case.</p><div class="info-box blue" style="margin-top:12px"><span class="info-box-title">When to use</span>Use for <strong>customer vendor form signatures</strong> or to fill out <strong>incomplete customer vendor forms</strong>.</div>`,
-          "Mark invoice as paid": `<p>Create your <strong>subject</strong> and <strong>description</strong> for this case.</p><div class="info-box blue" style="margin-top:12px;display:flex;gap:8px;align-items:flex-start"><svg viewBox="0 0 20 20" fill="currentColor" width="15" height="15" style="flex-shrink:0;margin-top:2px"><path fill-rule="evenodd" d="M6 2a2 2 0 00-2 2v12a2 2 0 002 2h8a2 2 0 002-2V7.414A2 2 0 0015.414 6L12 2.586A2 2 0 0010.586 2H6zm5 6a1 1 0 10-2 0v3.586l-1.293-1.293a1 1 0 10-1.414 1.414l3 3a1 1 0 001.414 0l3-3a1 1 0 00-1.414-1.414L11 11.586V8z" clip-rule="evenodd"/></svg><p>Mark pending invoices as paid <strong>only if the customer can share a valid Proof of Payment</strong>.</p></div>`,
-          "Invoice copy / assistance": `<p>Create your <strong>subject</strong> and <strong>description</strong> for this case.</p>`
-        }
-      }
-    }
-  },
-  support: {
-    subs: {
-      "Cancel personal subscription": {
-        icon: `<svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/></svg>`,
-        note: null,
-        caseTypes: {
-          "Premium or Families plan": `<p>This case type applies to personal <strong>Premium</strong> or <strong>Families</strong> plan cancellations.</p><div class="info-box blue" style="margin-top:12px"><span class="info-box-title">Action required</span>Pass this request to <strong>Care</strong> for handling.</div>`
-        }
-      },
-      "Technical support": {
-        icon: `<svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd"/></svg>`,
-        note: null,
-        caseTypes: { "Add case type": `<p style="color:#9e9d97">Add your case type instructions here.</p>` }
-      },
-      "Account issues": {
-        icon: `<svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z" clip-rule="evenodd"/></svg>`,
-        note: null,
-        caseTypes: { "Add case type": `<p style="color:#9e9d97">Add your case type instructions here.</p>` }
-      }
-    }
-  }
+  internal: { subs: {
+    "Renewals — Salesforce managed": { note: `<svg viewBox="0 0 20 20" fill="currentColor" width="15" height="15" style="flex-shrink:0;margin-top:1px"><path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/></svg> Make sure the request is being made <strong>30 days or more prior to the renewal date</strong>. Otherwise, it will be rejected.`, subtypes: { "Zuora account management": [] }, caseTypes: {
+      "Renewal request": `<p>Create your <strong>subject</strong> and <strong>description</strong> for this case.</p><div class="info-box blue" style="margin-top:12px"><span class="info-box-title">Important note</span>Create this internal case <strong>only if the renewal is within 90 days</strong>.<br><br>If the renewal is <strong>more than 90 days out</strong>, it is considered <strong>New Business</strong> — create a new business opportunity instead.</div>`,
+      "Reduce licenses": `<p>Create your <strong>subject</strong> and <strong>description</strong> for this case.</p>`,
+      "Cancel subscription": `<p>Create your <strong>subject</strong> and <strong>description</strong> for this case.</p>`,
+      "Cancel invoice": `<p>Create your <strong>subject</strong> and <strong>description</strong> for this case.</p><div class="info-box red" style="margin-top:12px"><span class="info-box-title">Important</span>If the invoice has <strong>already been paid</strong>, do not submit here — submit to <strong>Customer Payment Support</strong> instead.</div>`,
+      "Downgrade subscription": `<p>Create your <strong>subject</strong> and <strong>description</strong> for this case.</p>`,
+      "BOSS to SF migration": `<p>Create your <strong>subject</strong> and <strong>description</strong> for this case.</p><div class="info-box red-full" style="margin-top:12px"><div style="display:flex;align-items:center;gap:8px;margin-bottom:8px"><svg viewBox="0 0 20 20" fill="currentColor" width="16" height="16" style="flex-shrink:0"><path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/></svg><strong>Only follow this process if the customer agrees to all of the following</strong></div><ul><li>Customers will <strong>no longer be able to purchase online</strong>. They must always go through a sales rep, renewals rep, or support.</li><li>The customer's <strong>credit card will not be saved</strong>, nor will the system autopay like it does in BOSS.</li><li>Customer will be <strong>unable to purchase add-ons or adjust license count</strong> through the Admin Console.</li><li>There is a <strong>12-month minimum requirement</strong> for subscriptions.</li></ul></div>`
+    }},
+    "Billing": { note: null, subtypes: { "Zuora account management": ["Zuora trial extension","Upgrade plan Zuora manage account","Zuora account cancellation","Zuora auto renewal disablement","Zuora refund request","Zuora billing information updates"] }, caseTypes: {
+      "Zuora account management": `<p>Create your <strong>subject</strong> and <strong>description</strong> for this case.</p>`
+    }},
+    "Revenue operations": { note: null, subtypes: {}, caseTypes: {
+      "Missing licenses": `<p>Create your <strong>subject</strong> and <strong>description</strong> for this case.</p><div class="info-box blue" style="margin-top:12px"><span class="info-box-title">Use this case type when</span>The purchased licenses are <strong>not reflecting on the customer's end</strong> — the actual license count does not match what was provisioned.</div>`
+    }},
+    "General questions": { note: null, subtypes: {}, caseTypes: {
+      "Merge accounts": `<p style="margin-bottom:8px">Use the description template below for merge account requests.</p><div class="template-box">Hi Team,\n\nI'm requesting assistance with merging the two contacts [FDC IT]. Please let me know if you need any additional details from my end. Thank you!\n\nInfo to keep:\nName: FDC IT\nContact: (559) 213-2177\nEmail: it_master@fresnodiscoverycenter.org</div>`,
+      "Re-route to another AE": `<p>Re-route this case to another Account Executive.</p><div class="info-box amber" style="margin-top:12px;margin-bottom:12px"><span class="info-box-title">When to re-route</span>Re-route to another AE if the employee size is <strong>more than 50</strong>.</div><p style="margin-bottom:8px">Use this description template:</p><div class="template-box">Hi team,\n\nRequesting to re-route this contact out of name as the employee size is more than 49 and it is out of our scope.</div>`
+    }},
+    "Customer payment support": { note: null, subtypes: {}, caseTypes: {
+      "Refunds — invoice / wire transfer": `<p>Create your <strong>subject</strong> and <strong>description</strong> for this case.</p><div class="info-box blue" style="margin-top:12px"><span class="info-box-title">Scope</span>For refunds on transactions made via <strong>invoice or wire transfer</strong> on <strong>SF-managed accounts</strong> only.</div>`,
+      "Unban invoiced account": `<p>Create your <strong>subject</strong> and <strong>description</strong> for this case.</p><div class="info-box blue" style="margin-top:12px"><strong>Proof of Payment (PoP)</strong> must be provided by the customer. Use this to <strong>remove a BAN for non-payment</strong> on SF-managed accounts.</div>`,
+      "Vendor form assistance": `<p>Create your <strong>subject</strong> and <strong>description</strong> for this case.</p><div class="info-box blue" style="margin-top:12px"><span class="info-box-title">When to use</span>Use for <strong>customer vendor form signatures</strong> or to fill out <strong>incomplete customer vendor forms</strong>.</div>`,
+      "Mark invoice as paid": `<p>Create your <strong>subject</strong> and <strong>description</strong> for this case.</p><div class="info-box blue" style="margin-top:12px">Mark pending invoices as paid <strong>only if the customer can share a valid Proof of Payment</strong>.</div>`,
+      "Invoice copy / assistance": `<p>Create your <strong>subject</strong> and <strong>description</strong> for this case.</p>`
+    }}
+  }},
+  support: { subs: {
+    "Cancel personal subscription": { note: null, subtypes: {}, caseTypes: {
+      "Premium or Families plan": `<p>This case type applies to personal <strong>Premium</strong> or <strong>Families</strong> plan cancellations.</p><div class="info-box blue" style="margin-top:12px"><span class="info-box-title">Action required</span>Pass this request to <strong>Care</strong> for handling.</div>`
+    }},
+    "Technical support": { note: null, subtypes: {}, caseTypes: {} },
+    "Account issues": { note: null, subtypes: {}, caseTypes: {} }
+  }}
 };
 
-// ─── STATE ───────────────────────────────────────────────────────────────────
-let state = { cat: null, sub: null, ct: null, st: null };
+// ── VIEW STATE ───────────────────────────────────────────────────────────────
+let vState = { cat: null, sub: null, ct: null, st: null };
 
-// ─── RENDER ──────────────────────────────────────────────────────────────────
-function selectCat(cat) {
-  state = { cat, sub: null, ct: null, st: null };
-  document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
-  event.currentTarget.classList.add('active');
-  ['internal','support','tax','partner'].forEach(c => {
-    document.getElementById('panel-' + c).classList.remove('visible');
-  });
-  const panel = document.getElementById('panel-' + cat);
-  panel.classList.add('visible');
-  if (cat === 'internal' || cat === 'support') renderSubPanel(cat, panel);
+function selectCat(cat, btn) {
+  vState = { cat, sub:null, ct:null, st:null };
+  document.querySelectorAll('.cat-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  ['internal','support','tax','partner'].forEach(c => document.getElementById('panel-'+c).classList.remove('visible'));
+  document.getElementById('panel-'+cat).classList.add('visible');
+  if (cat==='internal'||cat==='support') renderSubs(cat);
 }
 
-function renderSubPanel(cat, panel) {
-  const subs = data[cat].subs;
+function renderSubs(cat) {
+  const panel = document.getElementById('panel-'+cat);
+  const subs = Object.keys(data[cat].subs);
   panel.innerHTML = `
     <p class="section-label">Choose a subcategory</p>
-    <div class="sub-row" id="sub-row-${cat}">
-      ${Object.keys(subs).map(sub => `
-        <button class="sub-btn" id="sub-btn-${esc(sub)}" onclick="selectSub('${cat}','${esc(sub)}')">
-          ${subs[sub].icon} ${sub}
-        </button>`).join('')}
+    <div class="sub-row" id="v-sub-row">
+      ${subs.map(s=>`<button class="sub-btn" id="vsub-${eid(s)}" onclick="vSelectSub('${cat}','${es(s)}')">${s}</button>`).join('')}
+      <button class="add-btn" onclick="openAdminPanel('${cat}','sub')">+ Add subcategory</button>
     </div>
-    <div id="sub-note-${cat}" class="sub-note hidden"></div>
-    <div id="ct-area-${cat}" style="display:none">
+    <div id="v-subnote" class="sub-note"></div>
+    <div id="v-ct-wrap" style="display:none">
       <p class="section-label">Choose a case type</p>
-      <div class="ct-row" id="ct-row-${cat}"></div>
+      <div class="ct-row" id="v-ct-row"></div>
     </div>
-    <div id="st-area-${cat}" style="display:none">
+    <div id="v-st-wrap" style="display:none">
       <p class="section-label">Choose a subtype</p>
-      <div class="st-row" id="st-row-${cat}"></div>
+      <div class="st-row" id="v-st-row"></div>
     </div>
-    <div id="instruction-area-${cat}" style="display:none">
+    <div id="v-inst-wrap" style="display:none">
       <div class="instruction-card">
         <div class="instruction-header">
-          <span class="instruction-breadcrumb" id="breadcrumb-${cat}"></span>
-          <button class="edit-field-btn" onclick="openEdit('${cat}')">✎ Edit instructions</button>
+          <span class="breadcrumb" id="v-breadcrumb"></span>
+          <div class="instruction-actions">
+            <button class="iaction-btn" onclick="openAdminPanel('${cat}','inst')">✎ Edit instructions</button>
+          </div>
         </div>
-        <div class="instruction-body" id="instruction-body-${cat}"></div>
+        <div class="instruction-body" id="v-inst-body"></div>
       </div>
     </div>`;
 }
 
-function esc(s) { return s.replace(/'/g, "\\'"); }
+function vSelectSub(cat, sub) {
+  vState.sub=sub; vState.ct=null; vState.st=null;
+  document.querySelectorAll('#v-sub-row .sub-btn').forEach(b=>b.classList.remove('active'));
+  const btn = document.getElementById('vsub-'+eid(sub));
+  if(btn) btn.classList.add('active');
+  const sd = data[cat].subs[sub];
+  const noteEl = document.getElementById('v-subnote');
+  if(sd.note){ noteEl.innerHTML=sd.note; noteEl.classList.add('show'); } else { noteEl.classList.remove('show'); noteEl.innerHTML=''; }
+  const cts = Object.keys(sd.caseTypes);
+  const ctRow = document.getElementById('v-ct-row');
+  ctRow.innerHTML = cts.map(ct=>`<button class="ct-btn" id="vct-${eid(ct)}" onclick="vSelectCT('${cat}','${es(sub)}','${es(ct)}')">${ct}</button>`).join('')
+    + `<button class="add-btn" onclick="openAdminPanel('${cat}','ct','${es(sub)}')">+ Add case type</button>`;
+  document.getElementById('v-ct-wrap').style.display='block';
+  document.getElementById('v-st-wrap').style.display='none';
+  document.getElementById('v-inst-wrap').style.display='none';
+  if(isAdmin) apSelectSub(sub);
+}
 
-function selectSub(cat, sub) {
-  state.sub = sub; state.ct = null; state.st = null;
-  document.querySelectorAll(`#sub-row-${cat} .sub-btn`).forEach(b => b.classList.remove('active'));
-  document.getElementById('sub-btn-' + esc(sub)).classList.add('active');
-  const subData = data[cat].subs[sub];
-  const noteEl = document.getElementById('sub-note-' + cat);
-  if (subData.note) {
-    noteEl.innerHTML = subData.note;
-    noteEl.classList.remove('hidden');
-    noteEl.style.display = 'flex';
+function vSelectCT(cat, sub, ct) {
+  vState.ct=ct; vState.st=null;
+  document.querySelectorAll('#v-ct-row .ct-btn').forEach(b=>b.classList.remove('active'));
+  const btn=document.getElementById('vct-'+eid(ct)); if(btn) btn.classList.add('active');
+  const sd=data[cat].subs[sub];
+  const stList = sd.subtypes && sd.subtypes[ct] ? sd.subtypes[ct] : [];
+  if(stList.length>0){
+    const stRow=document.getElementById('v-st-row');
+    stRow.innerHTML=stList.map(st=>`<button class="st-btn" id="vst-${eid(st)}" onclick="vSelectST('${cat}','${es(sub)}','${es(ct)}','${es(st)}')">${st}</button>`).join('')
+      +`<button class="add-btn" onclick="openAdminPanel('${cat}','st','${es(sub)}','${es(ct)}')">+ Add subtype</button>`;
+    document.getElementById('v-st-wrap').style.display='block';
+    document.getElementById('v-inst-wrap').style.display='none';
   } else {
-    noteEl.classList.add('hidden');
-    noteEl.style.display = 'none';
+    document.getElementById('v-st-wrap').style.display='none';
+    showInst(cat,sub,ct,null);
   }
-  const ctRow = document.getElementById('ct-row-' + cat);
-  ctRow.innerHTML = Object.keys(subData.caseTypes).map(ct =>
-    `<button class="ct-btn" id="ct-btn-${esc(ct)}" onclick="selectCT('${cat}','${esc(ct)}')">${ct}</button>`
-  ).join('');
-  document.getElementById('ct-area-' + cat).style.display = 'block';
-  document.getElementById('st-area-' + cat).style.display = 'none';
-  document.getElementById('instruction-area-' + cat).style.display = 'none';
+  if(isAdmin) apSelectCT(ct);
 }
 
-function selectCT(cat, ct) {
-  state.ct = ct; state.st = null;
-  document.querySelectorAll(`#ct-row-${cat} .ct-btn`).forEach(b => b.classList.remove('active'));
-  const btn = document.getElementById('ct-btn-' + esc(ct));
-  if (btn) btn.classList.add('active');
-  const subData = data[cat].subs[state.sub];
-  const subtypesMap = subData.subtypes || {};
-  if (subtypesMap[ct]) {
-    const stRow = document.getElementById('st-row-' + cat);
-    stRow.innerHTML = subtypesMap[ct].map(st =>
-      `<button class="st-btn" id="st-btn-${esc(st)}" onclick="selectST('${cat}','${esc(st)}')">${st}</button>`
-    ).join('');
-    document.getElementById('st-area-' + cat).style.display = 'block';
-    document.getElementById('instruction-area-' + cat).style.display = 'none';
-  } else {
-    document.getElementById('st-area-' + cat).style.display = 'none';
-    showInstruction(cat, ct);
-  }
+function vSelectST(cat,sub,ct,st){
+  vState.st=st;
+  document.querySelectorAll('#v-st-row .st-btn').forEach(b=>b.classList.remove('active'));
+  const btn=document.getElementById('vst-'+eid(st)); if(btn) btn.classList.add('active');
+  showInst(cat,sub,ct,st);
 }
 
-function selectST(cat, st) {
-  state.st = st;
-  document.querySelectorAll(`#st-row-${cat} .st-btn`).forEach(b => b.classList.remove('active'));
-  const btn = document.getElementById('st-btn-' + esc(st));
-  if (btn) btn.classList.add('active');
-  showInstruction(cat, state.ct, st);
+function showInst(cat,sub,ct,st){
+  const html=data[cat].subs[sub].caseTypes[ct]||'<p style="color:var(--text-faint)">No instructions added yet.</p>';
+  const bc=st?`${sub} › ${ct} › ${st}`:`${sub} › ${ct}`;
+  document.getElementById('v-breadcrumb').textContent=bc;
+  document.getElementById('v-inst-body').innerHTML=html;
+  document.getElementById('v-inst-wrap').style.display='block';
 }
 
-function showInstruction(cat, ct, st) {
-  const subData = data[cat].subs[state.sub];
-  const html = subData.caseTypes[ct];
-  const breadcrumb = st ? `${state.sub} › ${ct} › ${st}` : `${state.sub} › ${ct}`;
-  document.getElementById('breadcrumb-' + cat).textContent = breadcrumb;
-  document.getElementById('instruction-body-' + cat).innerHTML = html;
-  document.getElementById('instruction-area-' + cat).style.display = 'block';
-}
-
-// ─── SCENARIO ────────────────────────────────────────────────────────────────
-function showScenario(n) {
-  [1,2].forEach(i => {
-    document.getElementById('sc-btn-' + i).classList.toggle('active', i === n);
-    document.getElementById('scenario-' + i).style.display = i === n ? 'grid' : 'none';
+// ── SCENARIO ─────────────────────────────────────────────────────────────────
+function showScenario(n){
+  [1,2].forEach(i=>{
+    document.getElementById('sc-btn-'+i).classList.toggle('active',i===n);
+    document.getElementById('scenario-'+i).style.display=i===n?'grid':'none';
   });
 }
 
-// ─── ADMIN ───────────────────────────────────────────────────────────────────
-function toggleAdmin() {
-  if (isAdmin) {
-    isAdmin = false;
-    document.body.classList.remove('edit-mode');
-    document.getElementById('admin-btn').classList.remove('active');
-    document.getElementById('edit-badge').classList.remove('visible');
-  } else {
-    document.getElementById('login-modal').classList.add('open');
-    setTimeout(() => document.getElementById('pw-input').focus(), 100);
-  }
+// ── AUTH ──────────────────────────────────────────────────────────────────────
+function toggleAdmin(){
+  if(isAdmin){ logoutAdmin(); return; }
+  document.getElementById('login-modal').classList.add('open');
+  setTimeout(()=>document.getElementById('pw-input').focus(),100);
 }
-
-function checkPw() {
-  const val = document.getElementById('pw-input').value;
-  if (val === PASS) {
-    isAdmin = true;
+function checkPw(){
+  if(document.getElementById('pw-input').value===PASS){
+    isAdmin=true;
     document.body.classList.add('edit-mode');
     document.getElementById('admin-btn').classList.add('active');
     document.getElementById('edit-badge').classList.add('visible');
     closeLogin();
+    openAdminPanel(vState.cat||'internal');
   } else {
-    document.getElementById('pw-error').style.display = 'block';
-    document.getElementById('pw-input').value = '';
+    document.getElementById('pw-error').style.display='block';
+    document.getElementById('pw-input').value='';
     document.getElementById('pw-input').focus();
   }
 }
-
-function closeLogin() {
+function closeLogin(){
   document.getElementById('login-modal').classList.remove('open');
-  document.getElementById('pw-input').value = '';
-  document.getElementById('pw-error').style.display = 'none';
+  document.getElementById('pw-input').value='';
+  document.getElementById('pw-error').style.display='none';
+}
+function logoutAdmin(){
+  isAdmin=false;
+  document.body.classList.remove('edit-mode');
+  document.getElementById('admin-btn').classList.remove('active');
+  document.getElementById('edit-badge').classList.remove('visible');
+  closeAdminPanel();
 }
 
-// ─── EDIT ────────────────────────────────────────────────────────────────────
-function openEdit(cat) {
-  if (!isAdmin) return;
-  editTarget = { cat, ct: state.ct };
-  const current = data[cat].subs[state.sub].caseTypes[state.ct];
-  document.getElementById('edit-textarea').value = current;
-  document.getElementById('edit-modal').classList.add('open');
-  setTimeout(() => document.getElementById('edit-textarea').focus(), 100);
+// ── ADMIN PANEL ───────────────────────────────────────────────────────────────
+function openAdminPanel(cat, focus, sub, ct){
+  document.getElementById('admin-panel').classList.add('open');
+  document.getElementById('main-content').style.marginRight='420px';
+  apSelectCat(cat||apState.cat);
+  if(sub) { apState.sub=sub; apSelectSub(sub); }
+  if(ct)  { apState.ct=ct; apSelectCT(ct); }
+  if(focus==='inst' && vState.ct) apLoadInst();
+}
+function closeAdminPanel(){
+  document.getElementById('admin-panel').classList.remove('open');
+  document.getElementById('main-content').style.marginRight='0';
 }
 
-function saveEdit() {
-  const newVal = document.getElementById('edit-textarea').value;
-  data[editTarget.cat].subs[state.sub].caseTypes[editTarget.ct] = newVal;
-  showInstruction(editTarget.cat, editTarget.ct, state.st);
-  closeEdit();
+function apSelectCat(cat){
+  apState.cat=cat; apState.sub=null; apState.ct=null;
+  document.querySelectorAll('.ap-cat-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('ap-cat-'+cat).classList.add('active');
+  apRenderSubs();
+  document.getElementById('ap-note-section').style.display='none';
+  document.getElementById('ap-ct-section').style.display='none';
+  document.getElementById('ap-st-section').style.display='none';
+  document.getElementById('ap-inst-section').style.display='none';
 }
 
-function closeEdit() {
-  document.getElementById('edit-modal').classList.remove('open');
-  editTarget = null;
+function apRenderSubs(){
+  const cat=apState.cat;
+  const list=document.getElementById('ap-sub-list');
+  list.innerHTML=Object.keys(data[cat].subs).map(s=>`
+    <div class="ap-item ${apState.sub===s?'selected':''}" id="apsi-${eid(s)}" onclick="apSelectSub('${es(s)}')">
+      <span class="ap-item-name">${s}</span>
+      <div class="ap-item-actions">
+        <button class="ap-icon-btn" title="Rename" onclick="event.stopPropagation();apRenameSub('${es(s)}')">✏</button>
+        <button class="ap-icon-btn del" title="Delete" onclick="event.stopPropagation();apDeleteSub('${es(s)}')">🗑</button>
+      </div>
+    </div>`).join('');
 }
 
-document.getElementById('login-modal').addEventListener('click', function(e) { if(e.target===this) closeLogin(); });
-document.getElementById('edit-modal').addEventListener('click', function(e) { if(e.target===this) closeEdit(); });
+function apSelectSub(sub){
+  apState.sub=sub; apState.ct=null;
+  apRenderSubs();
+  const sd=data[apState.cat].subs[sub];
+  document.getElementById('ap-note-section').style.display='block';
+  document.getElementById('ap-note-text').value=sd.note?sd.note.replace(/<[^>]+>/g,''):'';
+  document.getElementById('ap-ct-sub-label').textContent=sub;
+  const list=document.getElementById('ap-ct-list');
+  list.innerHTML=Object.keys(sd.caseTypes).map(ct=>`
+    <div class="ap-item ${apState.ct===ct?'selected':''}" id="apci-${eid(ct)}" onclick="apSelectCT('${es(ct)}')">
+      <span class="ap-item-name">${ct}</span>
+      <div class="ap-item-actions">
+        <button class="ap-icon-btn" title="Rename" onclick="event.stopPropagation();apRenameCT('${es(ct)}')">✏</button>
+        <button class="ap-icon-btn del" title="Delete" onclick="event.stopPropagation();apDeleteCT('${es(ct)}')">🗑</button>
+      </div>
+    </div>`).join('');
+  document.getElementById('ap-ct-section').style.display='block';
+  document.getElementById('ap-st-section').style.display='none';
+  document.getElementById('ap-inst-section').style.display='none';
+}
+
+function apSelectCT(ct){
+  apState.ct=ct;
+  apSelectSub(apState.sub); // re-render to update selected state
+  const sd=data[apState.cat].subs[apState.sub];
+  const stList=(sd.subtypes&&sd.subtypes[ct])||[];
+  document.getElementById('ap-st-ct-label').textContent=ct;
+  const stL=document.getElementById('ap-st-list');
+  stL.innerHTML=stList.map(st=>`
+    <div class="ap-item">
+      <span class="ap-item-name">${st}</span>
+      <div class="ap-item-actions">
+        <button class="ap-icon-btn del" title="Delete" onclick="event.stopPropagation();apDeleteST('${es(ct)}','${es(st)}')">🗑</button>
+      </div>
+    </div>`).join('');
+  document.getElementById('ap-st-section').style.display='block';
+  apLoadInst();
+}
+
+function apLoadInst(){
+  if(!apState.sub||!apState.ct) return;
+  const html=data[apState.cat].subs[apState.sub].caseTypes[apState.ct]||'';
+  document.getElementById('ap-inst-label').textContent=apState.ct;
+  document.getElementById('ap-inst-text').value=html;
+  document.getElementById('ap-inst-section').style.display='block';
+}
+
+// ── AP ACTIONS ────────────────────────────────────────────────────────────────
+function apAddSub(){
+  const name=document.getElementById('ap-new-sub').value.trim(); if(!name) return;
+  if(data[apState.cat].subs[name]){ alert('Subcategory already exists.'); return; }
+  data[apState.cat].subs[name]={note:null,subtypes:{},caseTypes:{}};
+  document.getElementById('ap-new-sub').value='';
+  apRenderSubs();
+  if(vState.cat===apState.cat) renderSubs(apState.cat);
+}
+function apDeleteSub(sub){
+  if(!confirm(`Delete subcategory "${sub}"? This will remove all its case types too.`)) return;
+  delete data[apState.cat].subs[sub];
+  if(apState.sub===sub){apState.sub=null;apState.ct=null;}
+  apRenderSubs();
+  document.getElementById('ap-note-section').style.display='none';
+  document.getElementById('ap-ct-section').style.display='none';
+  document.getElementById('ap-st-section').style.display='none';
+  document.getElementById('ap-inst-section').style.display='none';
+  if(vState.cat===apState.cat) renderSubs(apState.cat);
+}
+function apRenameSub(sub){
+  const nn=prompt('Rename subcategory:',sub); if(!nn||nn===sub) return;
+  const sd=data[apState.cat].subs[sub];
+  data[apState.cat].subs[nn]=sd;
+  delete data[apState.cat].subs[sub];
+  if(apState.sub===sub) apState.sub=nn;
+  apRenderSubs();
+  if(vState.cat===apState.cat) renderSubs(apState.cat);
+}
+function apSaveNote(){
+  const raw=document.getElementById('ap-note-text').value.trim();
+  data[apState.cat].subs[apState.sub].note=raw||null;
+  if(vState.sub===apState.sub){
+    const noteEl=document.getElementById('v-subnote');
+    if(raw){noteEl.innerHTML=raw;noteEl.classList.add('show');}else{noteEl.classList.remove('show');noteEl.innerHTML='';}
+  }
+  alert('Note saved!');
+}
+function apAddCT(){
+  const name=document.getElementById('ap-new-ct').value.trim(); if(!name) return;
+  const sd=data[apState.cat].subs[apState.sub];
+  if(sd.caseTypes[name]){alert('Case type already exists.');return;}
+  sd.caseTypes[name]='<p>Add instructions here.</p>';
+  document.getElementById('ap-new-ct').value='';
+  apSelectSub(apState.sub);
+  if(vState.sub===apState.sub) vSelectSub(apState.cat,apState.sub);
+}
+function apDeleteCT(ct){
+  if(!confirm(`Delete case type "${ct}"?`)) return;
+  delete data[apState.cat].subs[apState.sub].caseTypes[ct];
+  if(apState.ct===ct){apState.ct=null;}
+  apSelectSub(apState.sub);
+  if(vState.sub===apState.sub) vSelectSub(apState.cat,apState.sub);
+}
+function apRenameCT(ct){
+  const nn=prompt('Rename case type:',ct); if(!nn||nn===ct) return;
+  const sd=data[apState.cat].subs[apState.sub];
+  const val=sd.caseTypes[ct];
+  sd.caseTypes[nn]=val;
+  delete sd.caseTypes[ct];
+  if(apState.ct===ct) apState.ct=nn;
+  apSelectSub(apState.sub);
+  if(vState.sub===apState.sub) vSelectSub(apState.cat,apState.sub);
+}
+function apAddST(){
+  const name=document.getElementById('ap-new-st').value.trim(); if(!name) return;
+  const sd=data[apState.cat].subs[apState.sub];
+  if(!sd.subtypes) sd.subtypes={};
+  if(!sd.subtypes[apState.ct]) sd.subtypes[apState.ct]=[];
+  if(sd.subtypes[apState.ct].includes(name)){alert('Subtype already exists.');return;}
+  sd.subtypes[apState.ct].push(name);
+  document.getElementById('ap-new-st').value='';
+  apSelectCT(apState.ct);
+  if(vState.ct===apState.ct) vSelectCT(apState.cat,apState.sub,apState.ct);
+}
+function apDeleteST(ct,st){
+  if(!confirm(`Delete subtype "${st}"?`)) return;
+  const arr=data[apState.cat].subs[apState.sub].subtypes[ct];
+  const idx=arr.indexOf(st); if(idx>-1) arr.splice(idx,1);
+  apSelectCT(ct);
+  if(vState.ct===ct) vSelectCT(apState.cat,apState.sub,ct);
+}
+function apSaveInst(){
+  const html=document.getElementById('ap-inst-text').value;
+  data[apState.cat].subs[apState.sub].caseTypes[apState.ct]=html;
+  if(vState.ct===apState.ct){
+    document.getElementById('v-inst-body').innerHTML=html;
+  }
+  alert('Instructions saved!');
+}
+
+// ── HELPERS ───────────────────────────────────────────────────────────────────
+function eid(s){return s.replace(/[^a-z0-9]/gi,'_')}
+function es(s){return s.replace(/\\/g,'\\\\').replace(/'/g,"\\'")}
+
+document.getElementById('login-modal').addEventListener('click',function(e){if(e.target===this)closeLogin();});
 </script>
 </body>
 </html>
