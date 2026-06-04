@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LastPass Resource Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #f5f4f0;
+    --surface: #ffffff;
+    --surface2: #f0efe9;
+    --border: rgba(0,0,0,0.08);
+    --border-med: rgba(0,0,0,0.14);
+    --text: #1a1a18;
+    --text-muted: #6b6a64;
+    --text-faint: #9e9d97;
+    --blue: #1a56db;
+    --blue-bg: #eff4ff;
+    --blue-border: #a4cafe;
+    --blue-text: #1e429f;
+    --amber: #b45309;
+    --amber-bg: #fffbeb;
+    --amber-border: #fcd34d;
+    --amber-text: #92400e;
+    --red: #c81e1e;
+    --red-bg: #fdf2f2;
+    --red-border: #f8b4b4;
+    --red-text: #9b1c1c;
+    --green: #057a55;
+    --green-bg: #f3faf7;
+    --green-border: #84e1bc;
+    --green-text: #03543f;
+    --accent: #d4380d;
+    --radius: 10px;
+    --radius-sm: 6px;
+  }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    line-height: 1.6;
+  }
+
+  /* HEADER */
+  .header {
+    background: var(--text);
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 56px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .header-title {
+    color: #fff;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  .header-right { display: flex; align-items: center; gap: 12px; }
+  .admin-btn {
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.2);
+    color: rgba(255,255,255,0.7);
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-family: 'DM Sans', sans-serif;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.2s;
+  }
+  .admin-btn:hover { background: rgba(255,255,255,0.1); color: #fff; }
+  .admin-btn.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .edit-badge {
+    display: none;
+    background: var(--accent);
+    color: #fff;
+    font-size: 11px;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-weight: 500;
+  }
+  .edit-badge.visible { display: block; }
+
+  /* MAIN LAYOUT */
+  .main { max-width: 900px; margin: 0 auto; padding: 2.5rem 2rem 4rem; }
+
+  /* NOTICE BANNER */
+  .notice {
+    background: var(--amber-bg);
+    border: 1px solid var(--amber-border);
+    border-radius: var(--radius);
+    padding: 14px 18px;
+    margin-bottom: 2rem;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  .notice-icon { font-size: 16px; color: var(--amber); margin-top: 1px; flex-shrink: 0; }
+  .notice p { font-size: 13px; color: var(--amber-text); line-height: 1.7; }
+  .notice strong { font-weight: 600; }
+
+  /* CATEGORY TABS */
+  .section-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-faint); margin-bottom: 10px; font-weight: 500; }
+  .cat-tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 2rem; }
+  .cat-btn {
+    padding: 10px 20px;
+    border-radius: 24px;
+    border: 1.5px solid var(--border-med);
+    background: var(--surface);
+    color: var(--text);
+    font-size: 13.5px;
+    font-weight: 500;
+    font-family: 'DM Sans', sans-serif;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.18s;
+  }
+  .cat-btn:hover { border-color: var(--text); }
+  .cat-btn.active { background: var(--text); color: #fff; border-color: var(--text); }
+  .cat-btn svg { width: 16px; height: 16px; flex-shrink: 0; }
+
+  /* PANELS */
+  .panel { display: none; }
+  .panel.visible { display: block; }
+
+  /* SUB NOTE */
+  .sub-note {
+    display: none;
+    border-radius: var(--radius-sm);
+    padding: 11px 14px;
+    margin-bottom: 1.25rem;
+    border-left: 3px solid var(--red);
+    background: var(--red-bg);
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    font-size: 13px;
+    color: var(--red-text);
+    line-height: 1.6;
+  }
+  .sub-note.hidden { display: none !important; }
+
+  /* SUB BUTTONS */
+  .sub-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 1.25rem; }
+  .sub-btn {
+    padding: 8px 16px;
+    border-radius: var(--radius-sm);
+    border: 1.5px solid var(--border-med);
+    background: var(--surface);
+    color: var(--text);
+    font-size: 13px;
+    font-family: 'DM Sans', sans-serif;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.15s;
+    font-weight: 400;
+  }
+  .sub-btn:hover { border-color: var(--text); }
+  .sub-btn.active { background: var(--surface2); border-color: var(--text); font-weight: 500; }
+  .sub-btn svg { width: 15px; height: 15px; flex-shrink: 0; }
+
+  /* CASE TYPE BUTTONS */
+  .ct-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 1.25rem; }
+  .ct-btn {
+    padding: 8px 16px;
+    border-radius: var(--radius-sm);
+    border: 1.5px solid var(--border-med);
+    background: var(--surface);
+    color: var(--text);
+    font-size: 13px;
+    font-family: 'DM Sans', sans-serif;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .ct-btn:hover { border-color: var(--text); }
+  .ct-btn.active { background: var(--surface2); border-color: var(--text); font-weight: 500; }
+
+  /* SUBTYPE BUTTONS */
+  .st-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 1.25rem; }
+  .st-btn {
+    padding: 7px 14px;
+    border-radius: var(--radius-sm);
+    border: 1.5px solid var(--border);
+    background: var(--surface);
+    color: var(--text-muted);
+    font-size: 12.5px;
+    font-family: 'DM Sans', sans-serif;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .st-btn:hover { border-color: var(--text); color: var(--text); }
+  .st-btn.active { background: var(--surface2); border-color: var(--text); color: var(--text); font-weight: 500; }
+
+  /* INSTRUCTION CARD */
+  .instruction-card {
+    background: var(--surface);
+    border: 1.5px solid var(--border-med);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    animation: fadeIn 0.2s ease;
+  }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+  .instruction-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .instruction-breadcrumb {
+    font-size: 12px;
+    color: var(--text-faint);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .edit-field-btn {
+    display: none;
+    background: var(--blue-bg);
+    border: 1px solid var(--blue-border);
+    color: var(--blue-text);
+    font-size: 11.5px;
+    padding: 4px 12px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 500;
+    transition: all 0.15s;
+  }
+  .edit-field-btn:hover { background: var(--blue); color: #fff; border-color: var(--blue); }
+  .edit-mode .edit-field-btn { display: block; }
+  .instruction-body { font-size: 14px; line-height: 1.7; }
+
+  /* INFO BOXES */
+  .info-box {
+    border-radius: var(--radius-sm);
+    padding: 12px 14px;
+    margin-top: 12px;
+    font-size: 13px;
+    line-height: 1.7;
+  }
+  .info-box.blue { background: var(--blue-bg); border-left: 3px solid var(--blue); color: var(--blue-text); }
+  .info-box.red { background: var(--red-bg); border-left: 3px solid var(--red); color: var(--red-text); }
+  .info-box.amber { background: var(--amber-bg); border-left: 3px solid var(--amber); color: var(--amber-text); }
+  .info-box.red-full { background: var(--red-bg); border: 1.5px solid var(--red-border); color: var(--red-text); }
+  .info-box.green { background: var(--green-bg); border-left: 3px solid var(--green); color: var(--green-text); }
+  .info-box-title { font-weight: 600; margin-bottom: 4px; display: block; }
+  .info-box ul { padding-left: 18px; margin-top: 4px; }
+  .info-box ul li { margin-bottom: 2px; }
+
+  /* TEMPLATE BOX */
+  .template-box {
+    background: var(--surface2);
+    border: 1px solid var(--border-med);
+    border-radius: var(--radius-sm);
+    padding: 14px;
+    font-family: 'DM Mono', monospace;
+    font-size: 12.5px;
+    white-space: pre-wrap;
+    line-height: 1.8;
+    color: var(--text);
+    margin-top: 8px;
+  }
+
+  /* TAX STEPS */
+  .step-list { display: grid; gap: 10px; }
+  .step-item {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    padding: 14px 16px;
+    background: var(--surface);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius);
+  }
+  .step-num {
+    min-width: 28px; height: 28px;
+    border-radius: 50%;
+    background: var(--blue-bg);
+    border: 1.5px solid var(--blue-border);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; font-weight: 600; color: var(--blue-text);
+    flex-shrink: 0;
+  }
+  .step-title { font-size: 14px; font-weight: 500; margin-bottom: 3px; }
+  .step-body { font-size: 13px; color: var(--text-muted); line-height: 1.6; }
+  .subject-pill {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 7px 14px;
+    background: var(--surface2);
+    border: 1px solid var(--border-med);
+    border-radius: var(--radius-sm);
+    font-size: 13px; font-weight: 500;
+  }
+
+  /* PARTNER FLOW */
+  .scenario-tabs { display: flex; gap: 8px; margin-bottom: 1.25rem; flex-wrap: wrap; }
+  .sc-btn {
+    padding: 8px 18px;
+    border-radius: 20px;
+    border: 1.5px solid var(--border-med);
+    background: var(--surface);
+    color: var(--text);
+    font-size: 13px; font-weight: 500;
+    font-family: 'DM Sans', sans-serif;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .sc-btn.active { background: var(--text); color: #fff; border-color: var(--text); }
+  .flow { display: grid; gap: 0; }
+  .flow-step {
+    padding: 13px 16px;
+    border-radius: var(--radius-sm);
+    border: 1.5px solid var(--border);
+    background: var(--surface2);
+    font-size: 13px; line-height: 1.6;
+  }
+  .flow-step.start { background: var(--amber-bg); border-color: var(--amber-border); color: var(--amber-text); text-align: center; font-weight: 500; }
+  .flow-step.end { background: var(--green-bg); border-color: var(--green-border); color: var(--green-text); text-align: center; font-weight: 500; }
+  .flow-step.danger { background: var(--red-bg); border-color: var(--red-border); color: var(--red-text); }
+  .flow-arrow { display: flex; justify-content: center; padding: 3px 0; color: var(--text-faint); font-size: 18px; }
+  .no-docusign { color: var(--red); font-weight: 600; margin-top: 6px; font-size: 13px; }
+
+  /* MODAL */
+  .modal-overlay {
+    display: none;
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 200;
+    align-items: center;
+    justify-content: center;
+  }
+  .modal-overlay.open { display: flex; }
+  .modal {
+    background: var(--surface);
+    border-radius: var(--radius);
+    padding: 2rem;
+    width: 360px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+  }
+  .modal h3 { font-size: 16px; font-weight: 600; margin-bottom: 6px; }
+  .modal p { font-size: 13px; color: var(--text-muted); margin-bottom: 1.25rem; }
+  .modal input {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1.5px solid var(--border-med);
+    border-radius: var(--radius-sm);
+    font-size: 14px;
+    font-family: 'DM Sans', sans-serif;
+    margin-bottom: 12px;
+    outline: none;
+    transition: border-color 0.15s;
+  }
+  .modal input:focus { border-color: var(--text); }
+  .modal-btns { display: flex; gap: 8px; }
+  .modal-btn {
+    flex: 1;
+    padding: 10px;
+    border-radius: var(--radius-sm);
+    font-size: 13px;
+    font-weight: 500;
+    font-family: 'DM Sans', sans-serif;
+    cursor: pointer;
+    border: 1.5px solid var(--border-med);
+    background: var(--surface);
+    transition: all 0.15s;
+  }
+  .modal-btn.primary { background: var(--text); color: #fff; border-color: var(--text); }
+  .modal-btn.primary:hover { background: #333; }
+  .modal-error { font-size: 12px; color: var(--red); margin-bottom: 8px; display: none; }
+
+  /* EDIT TEXTAREA MODAL */
+  .edit-modal { width: 560px; }
+  .edit-modal textarea {
+    width: 100%;
+    min-height: 200px;
+    padding: 10px 14px;
+    border: 1.5px solid var(--border-med);
+    border-radius: var(--radius-sm);
+    font-size: 13px;
+    font-family: 'DM Mono', monospace;
+    margin-bottom: 12px;
+    outline: none;
+    resize: vertical;
+    transition: border-color 0.15s;
+    line-height: 1.6;
+  }
+  .edit-modal textarea:focus { border-color: var(--text); }
+
+  /* DIVIDER */
+  .divider { height: 1px; background: var(--border); margin: 1.5rem 0; }
+
+  strong { font-weight: 600; }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header">
+  <span class="header-title">LastPass · Resource Guide</span>
+  <div class="header-right">
+    <span class="edit-badge" id="edit-badge">✎ Edit mode on</span>
+    <button class="admin-btn" id="admin-btn" onclick="toggleAdmin()">
+      <svg viewBox="0 0 20 20" fill="currentColor" width="14" height="14"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/></svg>
+      Admin
+    </button>
+  </div>
+</header>
+
+<!-- LOGIN MODAL -->
+<div class="modal-overlay" id="login-modal">
+  <div class="modal">
+    <h3>Admin access</h3>
+    <p>Enter your password to unlock edit mode.</p>
+    <input type="password" id="pw-input" placeholder="Password" onkeydown="if(event.key==='Enter')checkPw()">
+    <p class="modal-error" id="pw-error">Incorrect password. Try again.</p>
+    <div class="modal-btns">
+      <button class="modal-btn" onclick="closeLogin()">Cancel</button>
+      <button class="modal-btn primary" onclick="checkPw()">Unlock</button>
+    </div>
+  </div>
+</div>
+
+<!-- EDIT CONTENT MODAL -->
+<div class="modal-overlay" id="edit-modal">
+  <div class="modal edit-modal">
+    <h3>Edit instructions</h3>
+    <p>Edit the HTML content for this case. Use &lt;strong&gt; for bold, &lt;br&gt; for line breaks.</p>
+    <textarea id="edit-textarea"></textarea>
+    <p class="modal-error" id="edit-error"></p>
+    <div class="modal-btns">
+      <button class="modal-btn" onclick="closeEdit()">Cancel</button>
+      <button class="modal-btn primary" onclick="saveEdit()">Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN -->
+<main class="main">
+
+  <!-- UNIVERSAL NOTICE -->
+  <div class="notice">
+    <svg class="notice-icon" viewBox="0 0 20 20" fill="currentColor" width="18" height="18"><path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"/><path fill-rule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z" clip-rule="evenodd"/></svg>
+    <p><strong>Every case must include:</strong> the <strong>Universal ID</strong>, the correct <strong>account information</strong>, and a full <strong>description of the request</strong>.</p>
+  </div>
+
+  <!-- CATEGORY TABS -->
+  <p class="section-label">Select a category</p>
+  <div class="cat-tabs">
+    <button class="cat-btn" onclick="selectCat('internal')">
+      <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M4 4a2 2 0 012-2h8a2 2 0 012 2v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4zm3 1h2v2H7V5zm0 4h2v2H7V9zm0 4h2v2H7v-2zm4-8h2v2h-2V5zm0 4h2v2h-2V9zm0 4h2v2h-2v-2z" clip-rule="evenodd"/></svg>
+      Internal case
+    </button>
+    <button class="cat-btn" onclick="selectCat('support')">
+      <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-2 0c0 .993-.241 1.929-.668 2.754l-1.524-1.525a3.997 3.997 0 00.078-2.183l1.562-1.562C15.802 8.249 16 9.1 16 10zm-5.165 3.913l1.58 1.58A5.98 5.98 0 0110 16a5.976 5.976 0 01-2.516-.552l1.562-1.562a4.006 4.006 0 001.789.027zm-4.677-2.796a4.002 4.002 0 01-.041-2.08l-.08.08-1.53-1.533A5.98 5.98 0 004 10c0 .954.223 1.856.619 2.657l1.54-1.54zm1.088-6.45A5.974 5.974 0 0110 4c.954 0 1.856.223 2.657.619l-1.54 1.54a4.002 4.002 0 00-2.346.033L7.246 4.668z" clip-rule="evenodd"/></svg>
+      Support case
+    </button>
+    <button class="cat-btn" onclick="selectCat('tax')">
+      <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z" clip-rule="evenodd"/></svg>
+      Tax exempt process
+    </button>
+    <button class="cat-btn" onclick="selectCat('partner')">
+      <svg viewBox="0 0 20 20" fill="currentColor"><path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v1h8v-1zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-1a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v1h-3zM4.75 14.094A5.973 5.973 0 004 17v1H1v-1a3 3 0 013.75-2.906z"/></svg>
+      Partner process
+    </button>
+  </div>
+
+  <!-- INTERNAL / SUPPORT PANEL -->
+  <div class="panel" id="panel-internal"></div>
+  <div class="panel" id="panel-support"></div>
+
+  <!-- TAX PANEL -->
+  <div class="panel" id="panel-tax">
+    <div class="step-list">
+      <div class="step-item">
+        <div class="step-num">1</div>
+        <div>
+          <p class="step-title">Get the tax certificate</p>
+          <p class="step-body">Request and obtain the tax exemption certificate from the customer before proceeding.</p>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">2</div>
+        <div>
+          <p class="step-title">Forward the certificate via email</p>
+          <p class="step-body">Send the certificate to <strong>LastPassTax@lastpass.com</strong></p>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">3</div>
+        <div>
+          <p class="step-title">Use this subject line</p>
+          <div class="subject-pill" style="margin-top:6px;">
+            <svg viewBox="0 0 20 20" fill="currentColor" width="14" height="14"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/><path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/></svg>
+            Tax exempt request
+          </div>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">4</div>
+        <div style="width:100%">
+          <p class="step-title">Use this email description</p>
+          <div class="template-box">Hi Team,
+
+I'm requesting tax-exempt status on behalf of our customer. Kindly see the details below. If any additional information is needed, please let me know. Thank you for your assistance!
+
+• Customer's full name
+• Phone number
+• Email address
+• UID or Zuora ID</div>
+          <div class="info-box blue" style="margin-top:10px; display:flex; gap:8px; align-items:flex-start;">
+            <svg viewBox="0 0 20 20" fill="currentColor" width="15" height="15" style="flex-shrink:0;margin-top:2px"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/></svg>
+            <p style="font-size:12.5px;"><strong>Finding the Zuora ID:</strong> It can be found in the URL slug — for example: <code style="font-family:'DM Mono',monospace; font-size:11px; background:rgba(0,0,0,0.05); padding:1px 5px; border-radius:3px;">8a369a319d980459019db6896ada795f</code></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PARTNER PANEL -->
+  <div class="panel" id="panel-partner">
+    <div class="scenario-tabs">
+      <button class="sc-btn active" id="sc-btn-1" onclick="showScenario(1)">Scenario 1: Partner / Reseller</button>
+      <button class="sc-btn" id="sc-btn-2" onclick="showScenario(2)">Scenario 2: Distributor with Partner / Reseller</button>
+    </div>
+    <div id="scenario-1" class="flow">
+      <div class="flow-step start">START: Create the opportunity under the <strong>customer-end account</strong> (not the partner).</div>
+      <div class="flow-arrow">↓</div>
+      <div class="flow-step">Record <strong>all</strong> Partner and Representative details in both the Quote and the Opportunity.</div>
+      <div class="flow-arrow">↓</div>
+      <div class="flow-step">Create the Quote. Set the billing contact to the <strong>Partner Representative</strong>, and set the primary contact to the <strong>customer-end primary contact</strong>.</div>
+      <div class="flow-arrow">↓</div>
+      <div class="flow-step">Check the distributor and partner/reseller discounts — there is <strong>always a discount that applies</strong>.</div>
+      <div class="flow-arrow">↓</div>
+      <div class="flow-step">Save the Quote as a PDF and email it to the Partner Representative.<p class="no-docusign">⚠ Do NOT send it via DocuSign.</p></div>
+      <div class="flow-arrow">↓</div>
+      <div class="flow-step">Once the Partner Representative approves the Quote, they send the PO number. Upload the PO file to the Opportunity and enter the PO number.</div>
+      <div class="flow-arrow">↓</div>
+      <div class="flow-step end">END: Complete all required information. Always double-check the <strong>Partner Details, Partner Representative, Quote, and PO number</strong>.</div>
+    </div>
+    <div id="scenario-2" class="flow" style="display:none;">
+      <div class="flow-step start">START: Decision — Is there a Partner or Reseller involved?</div>
+      <div class="flow-arrow">↓</div>
+      <div class="flow-step danger"><strong>If NO partner/reseller:</strong> create the Opportunity and Quote directly under the customer-end account.</div>
+      <div class="flow-arrow">↓</div>
+      <div class="flow-step"><strong>If YES:</strong> record <strong>all</strong> Distributor, Partner/Reseller, and Partner Representative details in both the Quote and the Opportunity.</div>
+      <div class="flow-arrow">↓</div>
+      <div class="flow-step">Create the Quote. Set the billing contact to the <strong>Partner Representative</strong>, and set the primary contact to the <strong>customer-end primary contact</strong>.</div>
+      <div class="flow-arrow">↓</div>
+      <div class="flow-step">Check the distributor and partner/reseller discounts — there is <strong>always a discount that applies</strong>.</div>
+      <div class="flow-arrow">↓</div>
+      <div class="flow-step">Save the Quote as a PDF and email it to the Partner Representative.<p class="no-docusign">⚠ Do NOT send it via DocuSign.</p><br>Once approved, they send the PO number — upload the PO file to the Opportunity and enter the PO number.</div>
+      <div class="flow-arrow">↓</div>
+      <div class="flow-step end">END: Complete all required information. Always double-check the <strong>Partner Details, Partner Representative, Quote, and PO number</strong>.</div>
+    </div>
+  </div>
+
+</main>
+
+<script>
+const PASS = 'Naizah@030';
+let isAdmin = false;
+let editTarget = null;
+
+// ─── DATA ───────────────────────────────────────────────────────────────────
+const data = {
+  internal: {
+    subs: {
+      "Renewals — Salesforce managed": {
+        icon: `<svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z" clip-rule="evenodd"/></svg>`,
+        note: `<svg viewBox="0 0 20 20" fill="currentColor" width="15" height="15" style="flex-shrink:0;margin-top:1px"><path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/></svg> Make sure the request is being made <strong>30 days or more prior to the renewal date</strong>. Otherwise, it will be rejected.`,
+        caseTypes: {
+          "Renewal request": `<p>Create your <strong>subject</strong> and <strong>description</strong> for this case.</p><div class="info-box blue" style="margin-top:12px"><span class="info-box-title">Important note</span>Create this internal case <strong>only if the renewal is within 90 days</strong>.<br><br>If the renewal is <strong>more than 90 days out</strong>, it is considered <strong>New Business</strong> — create a new business opportunity instead.</div>`,
+          "Reduce licenses": `<p>Create your <strong>subject</strong> and <strong>description</strong> for this case.</p>`,
+          "Cancel subscription": `<p>Create your <strong>subject</strong> and <strong>description</strong> for this case.</p>`,
+          "Cancel invoice": `<p>Create your <strong>subject</strong> and <strong>description</strong> for this case.</p><div class="info-box red" style="margin-top:12px"><span class="info-box-title">Important</span>If the invoice has <strong>already been paid</strong>, do not submit here — submit to <strong>Customer Payment Support</strong> instead.</div>`,
+          "Downgrade subscription": `<p>Create your <strong>subject</strong> and <strong>description</strong> for this case.</p>`,
+          "BOSS to SF migration": `<p>Create your <strong>subject</strong> and <strong>description</strong> for this case.</p><div class="info-box red-full" style="margin-top:12px"><div style="display:flex;align-items:center;gap:8px;margin-bottom:8px"><svg viewBox="0 0 20 20" fill="currentColor" width="16" height="16" style="flex-shrink:0"><path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/></svg><strong>Only follow this process if the customer agrees to all of the following</strong></div><ul><li>Customers will <strong>no longer be able to purchase online</strong>. They must always go through a sales rep, renewals rep, or support.</li><li>The customer's <strong>credit card will not be saved</strong>, nor will the system autopay like it does in BOSS.</li><li>Customer will be <strong>unable to purchase add-ons or adjust license count</strong> through the Admin Console.</li><li>There is a <strong>12-month minimum requirement</strong> for subscriptions.</li></ul></div>`
+        }
+      },
+      "Billing": {
+        icon: `<svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M4 4a2 2 0 00-2 2v4a2 2 0 002 2V6h10a2 2 0 00-2-2H4zm2 6a2 2 0 012-2h8a2 2 0 012 2v4a2 2 0 01-2 2H8a2 2 0 01-2-2v-4zm6 4a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/></svg>`,
+        note: null,
+        subtypes: { "Zuora account management": ["Zuora trial extension","Upgrade plan Zuora manage account","Zuora account cancellation","Zuora auto renewal disablement","Zuora refund request","Zuora billing information updates"] },
+        caseTypes: {
+          "Zuora account management": `<p>Create your <strong>subject</strong> and <strong>description</strong> for this case.</p>`
+        }
+      },
+      "Revenue operations": {
+        icon: `<svg viewBox="0 0 20 20" fill="currentColor"><path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z"/></svg>`,
+        note: null,
+        caseTypes: {
+          "Missing licenses": `<p>Create your <strong>subject</strong> and <strong>description</strong> for this case.</p><div class="info-box blue" style="margin-top:12px"><span class="info-box-title">Use this case type when</span>The purchased licenses are <strong>not reflecting on the customer's end</strong> — the actual license count does not match what was provisioned.</div>`
+        }
+      },
+      "General questions": {
+        icon: `<svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"/></svg>`,
+        note: null,
+        caseTypes: {
+          "Merge accounts": `<p style="margin-bottom:8px">Use the description template below for merge account requests.</p><div class="template-box">Hi Team,
+
+I'm requesting assistance with merging the two contacts [FDC IT]. Please let me know if you need any additional details from my end. Thank you!
+
+Info to keep:
+Name: FDC IT
+Contact: (559) 213-2177
+Email: it_master@fresnodiscoverycenter.org</div>`,
+          "Re-route to another AE": `<p>Re-route this case to another Account Executive.</p><div class="info-box amber" style="margin-top:12px;margin-bottom:12px"><span class="info-box-title">When to re-route</span>Re-route to another AE if the employee size is <strong>more than 50</strong>.</div><p style="margin-bottom:8px">Use this description template:</p><div class="template-box">Hi team,
+
+Requesting to re-route this contact out of name as the employee size is more than 49 and it is out of our scope.</div>`
+        }
+      },
+      "Customer payment support": {
+        icon: `<svg viewBox="0 0 20 20" fill="currentColor"><path d="M4 4a2 2 0 00-2 2v1h16V6a2 2 0 00-2-2H4z"/><path fill-rule="evenodd" d="M18 9H2v5a2 2 0 002 2h12a2 2 0 002-2V9zM4 13a1 1 0 011-1h1a1 1 0 110 2H5a1 1 0 01-1-1zm5-1a1 1 0 100 2h1a1 1 0 100-2H9z" clip-rule="evenodd"/></svg>`,
+        note: null,
+        caseTypes: {
+          "Refunds — invoice / wire transfer": `<p>Create your <strong>subject</strong> and <strong>description</strong> for this case.</p><div class="info-box blue" style="margin-top:12px"><span class="info-box-title">Scope</span>For refunds on transactions made via <strong>invoice or wire transfer</strong> on <strong>SF-managed accounts</strong> only.</div>`,
+          "Unban invoiced account": `<p>Create your <strong>subject</strong> and <strong>description</strong> for this case.</p><div class="info-box blue" style="margin-top:12px;display:flex;gap:8px;align-items:flex-start"><svg viewBox="0 0 20 20" fill="currentColor" width="15" height="15" style="flex-shrink:0;margin-top:2px"><path fill-rule="evenodd" d="M6 2a2 2 0 00-2 2v12a2 2 0 002 2h8a2 2 0 002-2V7.414A2 2 0 0015.414 6L12 2.586A2 2 0 0010.586 2H6zm5 6a1 1 0 10-2 0v3.586l-1.293-1.293a1 1 0 10-1.414 1.414l3 3a1 1 0 001.414 0l3-3a1 1 0 00-1.414-1.414L11 11.586V8z" clip-rule="evenodd"/></svg><p><strong>Proof of Payment (PoP)</strong> must be provided by the customer. Use this to <strong>remove a BAN for non-payment</strong> on SF-managed accounts.</p></div>`,
+          "Vendor form assistance": `<p>Create your <strong>subject</strong> and <strong>description</strong> for this case.</p><div class="info-box blue" style="margin-top:12px"><span class="info-box-title">When to use</span>Use for <strong>customer vendor form signatures</strong> or to fill out <strong>incomplete customer vendor forms</strong>.</div>`,
+          "Mark invoice as paid": `<p>Create your <strong>subject</strong> and <strong>description</strong> for this case.</p><div class="info-box blue" style="margin-top:12px;display:flex;gap:8px;align-items:flex-start"><svg viewBox="0 0 20 20" fill="currentColor" width="15" height="15" style="flex-shrink:0;margin-top:2px"><path fill-rule="evenodd" d="M6 2a2 2 0 00-2 2v12a2 2 0 002 2h8a2 2 0 002-2V7.414A2 2 0 0015.414 6L12 2.586A2 2 0 0010.586 2H6zm5 6a1 1 0 10-2 0v3.586l-1.293-1.293a1 1 0 10-1.414 1.414l3 3a1 1 0 001.414 0l3-3a1 1 0 00-1.414-1.414L11 11.586V8z" clip-rule="evenodd"/></svg><p>Mark pending invoices as paid <strong>only if the customer can share a valid Proof of Payment</strong>.</p></div>`,
+          "Invoice copy / assistance": `<p>Create your <strong>subject</strong> and <strong>description</strong> for this case.</p>`
+        }
+      }
+    }
+  },
+  support: {
+    subs: {
+      "Cancel personal subscription": {
+        icon: `<svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/></svg>`,
+        note: null,
+        caseTypes: {
+          "Premium or Families plan": `<p>This case type applies to personal <strong>Premium</strong> or <strong>Families</strong> plan cancellations.</p><div class="info-box blue" style="margin-top:12px"><span class="info-box-title">Action required</span>Pass this request to <strong>Care</strong> for handling.</div>`
+        }
+      },
+      "Technical support": {
+        icon: `<svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd"/></svg>`,
+        note: null,
+        caseTypes: { "Add case type": `<p style="color:#9e9d97">Add your case type instructions here.</p>` }
+      },
+      "Account issues": {
+        icon: `<svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z" clip-rule="evenodd"/></svg>`,
+        note: null,
+        caseTypes: { "Add case type": `<p style="color:#9e9d97">Add your case type instructions here.</p>` }
+      }
+    }
+  }
+};
+
+// ─── STATE ───────────────────────────────────────────────────────────────────
+let state = { cat: null, sub: null, ct: null, st: null };
+
+// ─── RENDER ──────────────────────────────────────────────────────────────────
+function selectCat(cat) {
+  state = { cat, sub: null, ct: null, st: null };
+  document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+  event.currentTarget.classList.add('active');
+  ['internal','support','tax','partner'].forEach(c => {
+    document.getElementById('panel-' + c).classList.remove('visible');
+  });
+  const panel = document.getElementById('panel-' + cat);
+  panel.classList.add('visible');
+  if (cat === 'internal' || cat === 'support') renderSubPanel(cat, panel);
+}
+
+function renderSubPanel(cat, panel) {
+  const subs = data[cat].subs;
+  panel.innerHTML = `
+    <p class="section-label">Choose a subcategory</p>
+    <div class="sub-row" id="sub-row-${cat}">
+      ${Object.keys(subs).map(sub => `
+        <button class="sub-btn" id="sub-btn-${esc(sub)}" onclick="selectSub('${cat}','${esc(sub)}')">
+          ${subs[sub].icon} ${sub}
+        </button>`).join('')}
+    </div>
+    <div id="sub-note-${cat}" class="sub-note hidden"></div>
+    <div id="ct-area-${cat}" style="display:none">
+      <p class="section-label">Choose a case type</p>
+      <div class="ct-row" id="ct-row-${cat}"></div>
+    </div>
+    <div id="st-area-${cat}" style="display:none">
+      <p class="section-label">Choose a subtype</p>
+      <div class="st-row" id="st-row-${cat}"></div>
+    </div>
+    <div id="instruction-area-${cat}" style="display:none">
+      <div class="instruction-card">
+        <div class="instruction-header">
+          <span class="instruction-breadcrumb" id="breadcrumb-${cat}"></span>
+          <button class="edit-field-btn" onclick="openEdit('${cat}')">✎ Edit instructions</button>
+        </div>
+        <div class="instruction-body" id="instruction-body-${cat}"></div>
+      </div>
+    </div>`;
+}
+
+function esc(s) { return s.replace(/'/g, "\\'"); }
+
+function selectSub(cat, sub) {
+  state.sub = sub; state.ct = null; state.st = null;
+  document.querySelectorAll(`#sub-row-${cat} .sub-btn`).forEach(b => b.classList.remove('active'));
+  document.getElementById('sub-btn-' + esc(sub)).classList.add('active');
+  const subData = data[cat].subs[sub];
+  const noteEl = document.getElementById('sub-note-' + cat);
+  if (subData.note) {
+    noteEl.innerHTML = subData.note;
+    noteEl.classList.remove('hidden');
+    noteEl.style.display = 'flex';
+  } else {
+    noteEl.classList.add('hidden');
+    noteEl.style.display = 'none';
+  }
+  const ctRow = document.getElementById('ct-row-' + cat);
+  ctRow.innerHTML = Object.keys(subData.caseTypes).map(ct =>
+    `<button class="ct-btn" id="ct-btn-${esc(ct)}" onclick="selectCT('${cat}','${esc(ct)}')">${ct}</button>`
+  ).join('');
+  document.getElementById('ct-area-' + cat).style.display = 'block';
+  document.getElementById('st-area-' + cat).style.display = 'none';
+  document.getElementById('instruction-area-' + cat).style.display = 'none';
+}
+
+function selectCT(cat, ct) {
+  state.ct = ct; state.st = null;
+  document.querySelectorAll(`#ct-row-${cat} .ct-btn`).forEach(b => b.classList.remove('active'));
+  const btn = document.getElementById('ct-btn-' + esc(ct));
+  if (btn) btn.classList.add('active');
+  const subData = data[cat].subs[state.sub];
+  const subtypesMap = subData.subtypes || {};
+  if (subtypesMap[ct]) {
+    const stRow = document.getElementById('st-row-' + cat);
+    stRow.innerHTML = subtypesMap[ct].map(st =>
+      `<button class="st-btn" id="st-btn-${esc(st)}" onclick="selectST('${cat}','${esc(st)}')">${st}</button>`
+    ).join('');
+    document.getElementById('st-area-' + cat).style.display = 'block';
+    document.getElementById('instruction-area-' + cat).style.display = 'none';
+  } else {
+    document.getElementById('st-area-' + cat).style.display = 'none';
+    showInstruction(cat, ct);
+  }
+}
+
+function selectST(cat, st) {
+  state.st = st;
+  document.querySelectorAll(`#st-row-${cat} .st-btn`).forEach(b => b.classList.remove('active'));
+  const btn = document.getElementById('st-btn-' + esc(st));
+  if (btn) btn.classList.add('active');
+  showInstruction(cat, state.ct, st);
+}
+
+function showInstruction(cat, ct, st) {
+  const subData = data[cat].subs[state.sub];
+  const html = subData.caseTypes[ct];
+  const breadcrumb = st ? `${state.sub} › ${ct} › ${st}` : `${state.sub} › ${ct}`;
+  document.getElementById('breadcrumb-' + cat).textContent = breadcrumb;
+  document.getElementById('instruction-body-' + cat).innerHTML = html;
+  document.getElementById('instruction-area-' + cat).style.display = 'block';
+}
+
+// ─── SCENARIO ────────────────────────────────────────────────────────────────
+function showScenario(n) {
+  [1,2].forEach(i => {
+    document.getElementById('sc-btn-' + i).classList.toggle('active', i === n);
+    document.getElementById('scenario-' + i).style.display = i === n ? 'grid' : 'none';
+  });
+}
+
+// ─── ADMIN ───────────────────────────────────────────────────────────────────
+function toggleAdmin() {
+  if (isAdmin) {
+    isAdmin = false;
+    document.body.classList.remove('edit-mode');
+    document.getElementById('admin-btn').classList.remove('active');
+    document.getElementById('edit-badge').classList.remove('visible');
+  } else {
+    document.getElementById('login-modal').classList.add('open');
+    setTimeout(() => document.getElementById('pw-input').focus(), 100);
+  }
+}
+
+function checkPw() {
+  const val = document.getElementById('pw-input').value;
+  if (val === PASS) {
+    isAdmin = true;
+    document.body.classList.add('edit-mode');
+    document.getElementById('admin-btn').classList.add('active');
+    document.getElementById('edit-badge').classList.add('visible');
+    closeLogin();
+  } else {
+    document.getElementById('pw-error').style.display = 'block';
+    document.getElementById('pw-input').value = '';
+    document.getElementById('pw-input').focus();
+  }
+}
+
+function closeLogin() {
+  document.getElementById('login-modal').classList.remove('open');
+  document.getElementById('pw-input').value = '';
+  document.getElementById('pw-error').style.display = 'none';
+}
+
+// ─── EDIT ────────────────────────────────────────────────────────────────────
+function openEdit(cat) {
+  if (!isAdmin) return;
+  editTarget = { cat, ct: state.ct };
+  const current = data[cat].subs[state.sub].caseTypes[state.ct];
+  document.getElementById('edit-textarea').value = current;
+  document.getElementById('edit-modal').classList.add('open');
+  setTimeout(() => document.getElementById('edit-textarea').focus(), 100);
+}
+
+function saveEdit() {
+  const newVal = document.getElementById('edit-textarea').value;
+  data[editTarget.cat].subs[state.sub].caseTypes[editTarget.ct] = newVal;
+  showInstruction(editTarget.cat, editTarget.ct, state.st);
+  closeEdit();
+}
+
+function closeEdit() {
+  document.getElementById('edit-modal').classList.remove('open');
+  editTarget = null;
+}
+
+document.getElementById('login-modal').addEventListener('click', function(e) { if(e.target===this) closeLogin(); });
+document.getElementById('edit-modal').addEventListener('click', function(e) { if(e.target===this) closeEdit(); });
+</script>
+</body>
+</html>
