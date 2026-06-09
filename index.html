@@ -18,8 +18,6 @@
   --accent:#d4380d;--radius:10px;--radius-sm:6px;
 }
 body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;line-height:1.6}
-
-/* HEADER */
 .header{background:var(--text);padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:56px;position:sticky;top:0;z-index:100}
 .header-title{color:#fff;font-size:14px;font-weight:500;letter-spacing:.04em;text-transform:uppercase}
 .header-right{display:flex;align-items:center;gap:10px}
@@ -28,32 +26,23 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 .admin-btn.active{background:var(--accent);border-color:var(--accent);color:#fff}
 .edit-badge{display:none;background:var(--accent);color:#fff;font-size:11px;padding:3px 10px;border-radius:20px;font-weight:500}
 .edit-badge.visible{display:block}
-
-/* MAIN */
-.main{max-width:920px;margin:0 auto;padding:2.5rem 2rem 5rem}
-
-/* NOTICE */
-.notice{background:var(--amber-bg);border:1px solid var(--amber-border);border-radius:var(--radius);padding:14px 18px;margin-bottom:2rem;display:flex;gap:12px;align-items:flex-start}
+.saved-toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:#1a1a18;color:#fff;padding:10px 20px;border-radius:20px;font-size:13px;font-weight:500;z-index:999;transition:transform .3s ease;pointer-events:none}
+.saved-toast.show{transform:translateX(-50%) translateY(0)}
+.main{max-width:920px;margin:0 auto;padding:2.5rem 2rem 5rem;transition:margin-right .3s}
+.notice{background:var(--amber-bg);border:1px solid var(--amber-border);border-radius:var(--radius);padding:14px 18px;margin-bottom:2rem;display:flex;gap:12px;align-items:flex-start;position:relative}
 .notice p{font-size:13px;color:var(--amber-text);line-height:1.7}
-
-/* SECTION LABEL */
+.inline-edit-btn{display:none;position:absolute;top:8px;right:8px;background:var(--surface);border:1px solid var(--border-med);color:var(--text-muted);font-size:11px;padding:3px 10px;border-radius:12px;cursor:pointer;font-family:'DM Sans',sans-serif}
+.inline-edit-btn:hover{color:var(--text);border-color:var(--text)}
+.edit-mode .inline-edit-btn{display:block}
 .section-label{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--text-faint);margin-bottom:10px;font-weight:500}
-
-/* CATEGORY TABS */
 .cat-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:2rem}
 .cat-btn{padding:10px 20px;border-radius:24px;border:1.5px solid var(--border-med);background:var(--surface);color:var(--text);font-size:13.5px;font-weight:500;font-family:'DM Sans',sans-serif;cursor:pointer;display:flex;align-items:center;gap:8px;transition:all .18s}
 .cat-btn:hover{border-color:var(--text)}
 .cat-btn.active{background:var(--text);color:#fff;border-color:var(--text)}
 .cat-btn svg{width:16px;height:16px;flex-shrink:0}
-
-/* PANELS */
 .panel{display:none}.panel.visible{display:block}
-
-/* SUB NOTE */
 .sub-note{display:none;border-radius:var(--radius-sm);padding:11px 14px;margin-bottom:1.25rem;border-left:3px solid var(--red);background:var(--red-bg);gap:10px;align-items:flex-start;font-size:13px;color:var(--red-text);line-height:1.6}
 .sub-note.show{display:flex}
-
-/* BUTTON ROWS */
 .sub-row,.ct-row,.st-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:1.25rem}
 .sub-btn{padding:8px 16px;border-radius:var(--radius-sm);border:1.5px solid var(--border-med);background:var(--surface);color:var(--text);font-size:13px;font-family:'DM Sans',sans-serif;cursor:pointer;display:flex;align-items:center;gap:6px;transition:all .15s;font-weight:400}
 .sub-btn:hover,.sub-btn.active{border-color:var(--text)}
@@ -61,15 +50,10 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 .ct-btn,.st-btn{padding:8px 16px;border-radius:var(--radius-sm);border:1.5px solid var(--border-med);background:var(--surface);color:var(--text);font-size:13px;font-family:'DM Sans',sans-serif;cursor:pointer;transition:all .15s}
 .ct-btn:hover,.st-btn:hover,.ct-btn.active,.st-btn.active{border-color:var(--text)}
 .ct-btn.active,.st-btn.active{background:var(--surface2);font-weight:500}
-.st-btn{font-size:12.5px;color:var(--text-muted)}
-.st-btn.active{color:var(--text)}
-
-/* ADD BUTTON */
+.st-btn{font-size:12.5px;color:var(--text-muted)}.st-btn.active{color:var(--text)}
 .add-btn{padding:7px 14px;border-radius:var(--radius-sm);border:1.5px dashed var(--border-med);background:transparent;color:var(--text-faint);font-size:12.5px;font-family:'DM Sans',sans-serif;cursor:pointer;display:none;align-items:center;gap:5px;transition:all .15s}
 .add-btn:hover{border-color:var(--blue);color:var(--blue)}
 .edit-mode .add-btn{display:flex}
-
-/* INSTRUCTION CARD */
 .instruction-card{background:var(--surface);border:1.5px solid var(--border-med);border-radius:var(--radius);padding:1.5rem;animation:fadeIn .2s ease}
 @keyframes fadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
 .instruction-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;padding-bottom:.75rem;border-bottom:1px solid var(--border)}
@@ -78,11 +62,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 .edit-mode .instruction-actions{display:flex}
 .iaction-btn{background:var(--blue-bg);border:1px solid var(--blue-border);color:var(--blue-text);font-size:11.5px;padding:4px 12px;border-radius:20px;cursor:pointer;font-family:'DM Sans',sans-serif;font-weight:500;transition:all .15s}
 .iaction-btn:hover{background:var(--blue);color:#fff;border-color:var(--blue)}
-.iaction-btn.danger{background:var(--red-bg);border-color:var(--red-border);color:var(--red-text)}
-.iaction-btn.danger:hover{background:var(--red);color:#fff;border-color:var(--red)}
 .instruction-body{font-size:14px;line-height:1.7}
-
-/* INFO BOXES */
 .info-box{border-radius:var(--radius-sm);padding:12px 14px;margin-top:12px;font-size:13px;line-height:1.7}
 .info-box.blue{background:var(--blue-bg);border-left:3px solid var(--blue);color:var(--blue-text)}
 .info-box.red{background:var(--red-bg);border-left:3px solid var(--red);color:var(--red-text)}
@@ -91,8 +71,6 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 .info-box-title{font-weight:600;margin-bottom:4px;display:block}
 .info-box ul{padding-left:18px;margin-top:4px}
 .template-box{background:var(--surface2);border:1px solid var(--border-med);border-radius:var(--radius-sm);padding:14px;font-family:'DM Mono',monospace;font-size:12.5px;white-space:pre-wrap;line-height:1.8;color:var(--text);margin-top:8px}
-
-/* PARTNER / TAX */
 .step-list{display:grid;gap:10px}
 .step-item{display:flex;gap:14px;align-items:flex-start;padding:14px 16px;background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius)}
 .step-num{min-width:28px;height:28px;border-radius:50%;background:var(--blue-bg);border:1.5px solid var(--blue-border);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;color:var(--blue-text);flex-shrink:0}
@@ -110,48 +88,46 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 .flow-arrow{display:flex;justify-content:center;padding:3px 0;color:var(--text-faint);font-size:18px}
 .no-docusign{color:var(--red);font-weight:600;margin-top:6px;font-size:13px}
 
-/* ── ADMIN PANEL ── */
-.admin-panel{display:none;position:fixed;top:56px;right:0;bottom:0;width:420px;background:var(--surface);border-left:1.5px solid var(--border-med);overflow-y:auto;z-index:90;box-shadow:-4px 0 24px rgba(0,0,0,.08)}
+/* ADMIN PANEL */
+.admin-panel{display:none;position:fixed;top:56px;right:0;bottom:0;width:440px;background:var(--surface);border-left:1.5px solid var(--border-med);overflow-y:auto;z-index:90;box-shadow:-4px 0 24px rgba(0,0,0,.08)}
 .admin-panel.open{display:flex;flex-direction:column}
-.ap-header{padding:1.25rem 1.5rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;background:var(--surface);position:sticky;top:0;z-index:2}
+.ap-header{padding:1rem 1.5rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;background:var(--surface);position:sticky;top:0;z-index:2}
 .ap-title{font-size:14px;font-weight:600}
-.ap-close{background:none;border:none;cursor:pointer;color:var(--text-muted);font-size:20px;line-height:1;padding:2px 6px;border-radius:4px}
+.ap-close{background:none;border:none;cursor:pointer;color:var(--text-muted);font-size:22px;line-height:1;padding:2px 6px;border-radius:4px}
 .ap-close:hover{background:var(--surface2)}
+.ap-tabs{display:flex;border-bottom:1px solid var(--border);background:var(--surface);position:sticky;top:53px;z-index:2}
+.ap-tab{flex:1;padding:10px;font-size:12.5px;font-weight:500;font-family:'DM Sans',sans-serif;border:none;background:none;cursor:pointer;color:var(--text-muted);border-bottom:2px solid transparent;transition:all .15s}
+.ap-tab.active{color:var(--text);border-bottom-color:var(--text)}
 .ap-body{padding:1.25rem 1.5rem;flex:1}
-.ap-section{margin-bottom:1.75rem}
-.ap-section-title{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--text-faint);font-weight:600;margin-bottom:10px}
-.ap-cat-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:1.25rem}
+.ap-section{margin-bottom:1.5rem}
+.ap-section-title{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--text-faint);font-weight:600;margin-bottom:8px;display:flex;align-items:center;justify-content:space-between}
+.ap-cat-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:1rem}
 .ap-cat-btn{padding:6px 14px;border-radius:20px;border:1.5px solid var(--border-med);background:transparent;color:var(--text-muted);font-size:12px;font-family:'DM Sans',sans-serif;cursor:pointer;transition:all .15s}
 .ap-cat-btn.active{background:var(--text);color:#fff;border-color:var(--text)}
-
-/* AP ITEMS */
-.ap-item{display:flex;align-items:center;justify-content:space-between;padding:9px 12px;border-radius:var(--radius-sm);border:1.5px solid var(--border);background:var(--surface2);margin-bottom:6px;cursor:pointer;transition:all .15s}
+.ap-item{display:flex;align-items:center;justify-content:space-between;padding:8px 12px;border-radius:var(--radius-sm);border:1.5px solid var(--border);background:var(--surface2);margin-bottom:5px;cursor:pointer;transition:all .15s}
 .ap-item:hover{border-color:var(--border-med)}
 .ap-item.selected{border-color:var(--text);background:var(--surface)}
-.ap-item-name{font-size:13px;font-weight:500}
-.ap-item-actions{display:flex;gap:4px}
-.ap-icon-btn{background:none;border:none;cursor:pointer;padding:3px 6px;border-radius:4px;font-size:13px;color:var(--text-muted);transition:all .15s;font-family:'DM Sans',sans-serif}
+.ap-item-name{font-size:13px;font-weight:500;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ap-item-actions{display:flex;gap:3px;flex-shrink:0}
+.ap-icon-btn{background:none;border:none;cursor:pointer;padding:3px 6px;border-radius:4px;font-size:13px;color:var(--text-muted);transition:all .15s}
 .ap-icon-btn:hover{background:var(--surface2);color:var(--text)}
 .ap-icon-btn.del:hover{background:var(--red-bg);color:var(--red)}
-
-/* AP ADD FORM */
-.ap-add-form{display:flex;gap:6px;margin-top:8px}
+.ap-add-form{display:flex;gap:6px;margin-top:6px}
 .ap-input{flex:1;padding:8px 12px;border:1.5px solid var(--border-med);border-radius:var(--radius-sm);font-size:13px;font-family:'DM Sans',sans-serif;outline:none;transition:border-color .15s}
 .ap-input:focus{border-color:var(--text)}
 .ap-add-submit{padding:8px 14px;border-radius:var(--radius-sm);background:var(--text);color:#fff;border:none;font-size:13px;font-family:'DM Sans',sans-serif;font-weight:500;cursor:pointer;white-space:nowrap}
 .ap-add-submit:hover{background:#333}
-
-/* AP TEXTAREA */
-.ap-textarea{width:100%;min-height:180px;padding:10px 12px;border:1.5px solid var(--border-med);border-radius:var(--radius-sm);font-size:12.5px;font-family:'DM Mono',monospace;outline:none;resize:vertical;transition:border-color .15s;line-height:1.6;margin-top:6px}
+.ap-textarea{width:100%;min-height:160px;padding:10px 12px;border:1.5px solid var(--border-med);border-radius:var(--radius-sm);font-size:12.5px;font-family:'DM Mono',monospace;outline:none;resize:vertical;transition:border-color .15s;line-height:1.6;margin-top:6px}
 .ap-textarea:focus{border-color:var(--text)}
-.ap-save-btn{margin-top:8px;padding:9px 18px;border-radius:var(--radius-sm);background:var(--text);color:#fff;border:none;font-size:13px;font-family:'DM Sans',sans-serif;font-weight:500;cursor:pointer;width:100%}
+.ap-save-btn{margin-top:8px;padding:9px 18px;border-radius:var(--radius-sm);background:var(--text);color:#fff;border:none;font-size:13px;font-family:'DM Sans',sans-serif;font-weight:500;cursor:pointer;width:100%;transition:background .15s}
 .ap-save-btn:hover{background:#333}
-.ap-hint{font-size:11.5px;color:var(--text-faint);margin-top:4px;line-height:1.5}
+.ap-hint{font-size:11px;color:var(--text-faint);margin-top:5px;line-height:1.6;background:var(--surface2);padding:8px 10px;border-radius:var(--radius-sm)}
+.ap-plain-input{width:100%;padding:8px 12px;border:1.5px solid var(--border-med);border-radius:var(--radius-sm);font-size:13px;font-family:'DM Sans',sans-serif;outline:none;transition:border-color .15s;margin-top:6px}
+.ap-plain-input:focus{border-color:var(--text)}
+.divider{height:1px;background:var(--border);margin:.75rem 0}
+.ap-tab-content{display:none}.ap-tab-content.active{display:block}
 
-/* AP NOTE EDIT */
-.ap-note-label{font-size:12px;color:var(--text-muted);margin-bottom:4px}
-
-/* MODAL (login) */
+/* MODAL */
 .modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:200;align-items:center;justify-content:center}
 .modal-overlay.open{display:flex}
 .modal{background:var(--surface);border-radius:var(--radius);padding:2rem;width:360px;box-shadow:0 20px 60px rgba(0,0,0,.2)}
@@ -165,12 +141,12 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 .modal-btn.primary:hover{background:#333}
 .modal-error{font-size:12px;color:var(--red);margin-bottom:8px;display:none}
 strong{font-weight:600}
-.divider{height:1px;background:var(--border);margin:.75rem 0}
 </style>
 </head>
 <body>
 
-<!-- HEADER -->
+<div class="saved-toast" id="saved-toast">✓ Changes saved</div>
+
 <header class="header">
   <span class="header-title">LastPass · Resource Guide</span>
   <div class="header-right">
@@ -182,7 +158,7 @@ strong{font-weight:600}
   </div>
 </header>
 
-<!-- LOGIN MODAL -->
+<!-- LOGIN -->
 <div class="modal-overlay" id="login-modal">
   <div class="modal">
     <h3>Admin access</h3>
@@ -196,110 +172,140 @@ strong{font-weight:600}
   </div>
 </div>
 
-<!-- ADMIN SIDE PANEL -->
+<!-- ADMIN PANEL -->
 <div class="admin-panel" id="admin-panel">
   <div class="ap-header">
     <span class="ap-title">⚙ Admin Panel</span>
     <button class="ap-close" onclick="closeAdminPanel()">×</button>
   </div>
+  <div class="ap-tabs">
+    <button class="ap-tab active" onclick="switchApTab('structure')">Structure</button>
+    <button class="ap-tab" onclick="switchApTab('content')">Content</button>
+    <button class="ap-tab" onclick="switchApTab('global')">Global</button>
+  </div>
   <div class="ap-body">
 
-    <!-- CATEGORY SELECT -->
-    <div class="ap-section">
-      <p class="ap-section-title">Editing category</p>
-      <div class="ap-cat-tabs">
-        <button class="ap-cat-btn active" id="ap-cat-internal" onclick="apSelectCat('internal')">Internal case</button>
-        <button class="ap-cat-btn" id="ap-cat-support" onclick="apSelectCat('support')">Support case</button>
+    <!-- STRUCTURE TAB -->
+    <div class="ap-tab-content active" id="ap-tab-structure">
+      <div class="ap-section">
+        <p class="ap-section-title">Category</p>
+        <div class="ap-cat-tabs">
+          <button class="ap-cat-btn active" id="ap-cat-internal" onclick="apSelectCat('internal')">Internal case</button>
+          <button class="ap-cat-btn" id="ap-cat-support" onclick="apSelectCat('support')">Support case</button>
+        </div>
+      </div>
+      <div class="ap-section">
+        <p class="ap-section-title">Subcategories</p>
+        <div id="ap-sub-list"></div>
+        <div class="ap-add-form">
+          <input class="ap-input" id="ap-new-sub" placeholder="New subcategory name…" onkeydown="if(event.key==='Enter')apAddSub()">
+          <button class="ap-add-submit" onclick="apAddSub()">Add</button>
+        </div>
+      </div>
+      <div class="ap-section" id="ap-ct-section" style="display:none">
+        <p class="ap-section-title">Case types — <span id="ap-ct-sub-label" style="text-transform:none;letter-spacing:0;font-weight:500;color:var(--text-muted);font-size:12px"></span></p>
+        <div id="ap-ct-list"></div>
+        <div class="ap-add-form">
+          <input class="ap-input" id="ap-new-ct" placeholder="New case type…" onkeydown="if(event.key==='Enter')apAddCT()">
+          <button class="ap-add-submit" onclick="apAddCT()">Add</button>
+        </div>
+      </div>
+      <div class="ap-section" id="ap-st-section" style="display:none">
+        <p class="ap-section-title">Subtypes — <span id="ap-st-ct-label" style="text-transform:none;letter-spacing:0;font-weight:500;color:var(--text-muted);font-size:12px"></span></p>
+        <div id="ap-st-list"></div>
+        <div class="ap-add-form">
+          <input class="ap-input" id="ap-new-st" placeholder="New subtype…" onkeydown="if(event.key==='Enter')apAddST()">
+          <button class="ap-add-submit" onclick="apAddST()">Add</button>
+        </div>
       </div>
     </div>
 
-    <!-- SUBCATEGORIES -->
-    <div class="ap-section">
-      <p class="ap-section-title">Subcategories</p>
-      <div id="ap-sub-list"></div>
-      <div class="ap-add-form">
-        <input class="ap-input" id="ap-new-sub" placeholder="New subcategory name…">
-        <button class="ap-add-submit" onclick="apAddSub()">Add</button>
+    <!-- CONTENT TAB -->
+    <div class="ap-tab-content" id="ap-tab-content">
+      <div class="ap-section">
+        <p class="ap-section-title">Subcategory warning note — <span id="ap-note-label" style="text-transform:none;letter-spacing:0;font-weight:500;color:var(--text-muted);font-size:12px">select a subcategory first</span></p>
+        <p class="ap-hint">Shown as a red warning banner when a subcategory is clicked. Leave blank for none. Use &lt;strong&gt; for bold.</p>
+        <textarea class="ap-textarea" id="ap-note-text" style="min-height:80px" placeholder="e.g. Make sure the request is being made 30 days or more prior…" oninput="apAutoSaveNote()"></textarea>
+      </div>
+      <div class="divider"></div>
+      <div class="ap-section" id="ap-inst-section-content">
+        <p class="ap-section-title">Instructions — <span id="ap-inst-label" style="text-transform:none;letter-spacing:0;font-weight:500;color:var(--text-muted);font-size:12px">select a case type first</span></p>
+        <p class="ap-hint">Supports HTML. Useful snippets:<br>
+          <code style="font-size:10.5px">&lt;strong&gt;bold&lt;/strong&gt;</code> &nbsp;
+          <code style="font-size:10.5px">&lt;br&gt;</code> line break<br>
+          Info box: <code style="font-size:10.5px">&lt;div class="info-box blue"&gt;…&lt;/div&gt;</code> (blue/red/amber)<br>
+          Template: <code style="font-size:10.5px">&lt;div class="template-box"&gt;…&lt;/div&gt;</code>
+        </p>
+        <textarea class="ap-textarea" id="ap-inst-text" placeholder="Select a case type to edit its instructions…" oninput="apAutoSaveInst()"></textarea>
       </div>
     </div>
 
-    <!-- SUBCATEGORY NOTE -->
-    <div class="ap-section" id="ap-note-section" style="display:none">
-      <p class="ap-section-title">Subcategory warning note</p>
-      <p class="ap-note-label">Leave blank for no warning. Use &lt;strong&gt; for bold.</p>
-      <textarea class="ap-textarea" id="ap-note-text" style="min-height:80px" placeholder="e.g. Make sure the request is being made 30 days or more prior…"></textarea>
-      <button class="ap-save-btn" onclick="apSaveNote()">Save note</button>
-    </div>
-
-    <!-- CASE TYPES -->
-    <div class="ap-section" id="ap-ct-section" style="display:none">
-      <p class="ap-section-title">Case types — <span id="ap-ct-sub-label" style="text-transform:none;letter-spacing:0;font-weight:500;color:var(--text-muted)"></span></p>
-      <div id="ap-ct-list"></div>
-      <div class="ap-add-form">
-        <input class="ap-input" id="ap-new-ct" placeholder="New case type name…">
-        <button class="ap-add-submit" onclick="apAddCT()">Add</button>
+    <!-- GLOBAL TAB -->
+    <div class="ap-tab-content" id="ap-tab-global">
+      <div class="ap-section">
+        <p class="ap-section-title">Page title (header)</p>
+        <input class="ap-plain-input" id="g-page-title" placeholder="LastPass · Resource Guide" oninput="gSaveTitle()">
       </div>
-    </div>
-
-    <!-- SUBTYPES -->
-    <div class="ap-section" id="ap-st-section" style="display:none">
-      <p class="ap-section-title">Subtypes — <span id="ap-st-ct-label" style="text-transform:none;letter-spacing:0;font-weight:500;color:var(--text-muted)"></span></p>
-      <div id="ap-st-list"></div>
-      <div class="ap-add-form">
-        <input class="ap-input" id="ap-new-st" placeholder="New subtype name…">
-        <button class="ap-add-submit" onclick="apAddST()">Add</button>
+      <div class="ap-section">
+        <p class="ap-section-title">Universal notice banner</p>
+        <p class="ap-hint">The amber banner at the top. Use &lt;strong&gt; for bold.</p>
+        <textarea class="ap-textarea" id="g-notice-text" style="min-height:80px" oninput="gSaveNotice()"></textarea>
       </div>
-    </div>
-
-    <!-- INSTRUCTIONS EDITOR -->
-    <div class="ap-section" id="ap-inst-section" style="display:none">
-      <p class="ap-section-title">Instructions — <span id="ap-inst-label" style="text-transform:none;letter-spacing:0;font-weight:500;color:var(--text-muted)"></span></p>
-      <p class="ap-hint">Use HTML: &lt;strong&gt;bold&lt;/strong&gt;, &lt;br&gt; for line break. Add info boxes with &lt;div class="info-box blue"&gt;…&lt;/div&gt; (blue/red/amber). For templates use &lt;div class="template-box"&gt;…&lt;/div&gt;</p>
-      <textarea class="ap-textarea" id="ap-inst-text" placeholder="Enter instruction HTML here…"></textarea>
-      <button class="ap-save-btn" onclick="apSaveInst()">Save instructions</button>
+      <div class="ap-section">
+        <p class="ap-section-title">Tax exempt — email address</p>
+        <input class="ap-plain-input" id="g-tax-email" placeholder="LastPassTax@lastpass.com" oninput="gSaveTax()">
+      </div>
+      <div class="ap-section">
+        <p class="ap-section-title">Tax exempt — subject line</p>
+        <input class="ap-plain-input" id="g-tax-subject" placeholder="Tax exempt request" oninput="gSaveTax()">
+      </div>
+      <div class="ap-section">
+        <p class="ap-section-title">Tax exempt — email template</p>
+        <textarea class="ap-textarea" id="g-tax-template" oninput="gSaveTax()"></textarea>
+      </div>
     </div>
 
   </div>
 </div>
 
-<!-- MAIN CONTENT -->
+<!-- MAIN -->
 <main class="main" id="main-content">
-
-  <div class="notice">
+  <div class="notice" id="notice-banner">
     <svg viewBox="0 0 20 20" fill="currentColor" width="18" height="18" style="flex-shrink:0;margin-top:1px;color:var(--amber)"><path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"/><path fill-rule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z" clip-rule="evenodd"/></svg>
-    <p><strong>Every case must include:</strong> the <strong>Universal ID</strong>, the correct <strong>account information</strong>, and a full <strong>description of the request</strong>.</p>
+    <p id="notice-text"><strong>Every case must include:</strong> the <strong>Universal ID</strong>, the correct <strong>account information</strong>, and a full <strong>description of the request</strong>.</p>
+    <button class="inline-edit-btn" onclick="focusGlobalTab('g-notice-text')">✎ Edit</button>
   </div>
 
   <p class="section-label">Select a category</p>
   <div class="cat-tabs">
     <button class="cat-btn" onclick="selectCat('internal',this)">
-      <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M4 4a2 2 0 012-2h8a2 2 0 012 2v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4zm3 1h2v2H7V5zm0 4h2v2H7V9zm0 4h2v2H7v-2zm4-8h2v2h-2V5zm0 4h2v2h-2V9zm0 4h2v2h-2v-2z" clip-rule="evenodd"/></svg>
-      Internal case
+      <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M4 4a2 2 0 012-2h8a2 2 0 012 2v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4zm3 1h2v2H7V5zm0 4h2v2H7V9zm0 4h2v2H7v-2zm4-8h2v2h-2V5zm0 4h2v2h-2V9zm0 4h2v2h-2v-2z" clip-rule="evenodd"/></svg>Internal case
     </button>
     <button class="cat-btn" onclick="selectCat('support',this)">
-      <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-2 0c0 .993-.241 1.929-.668 2.754l-1.524-1.525a3.997 3.997 0 00.078-2.183l1.562-1.562C15.802 8.249 16 9.1 16 10zm-5.165 3.913l1.58 1.58A5.98 5.98 0 0110 16a5.976 5.976 0 01-2.516-.552l1.562-1.562a4.006 4.006 0 001.789.027zm-4.677-2.796a4.002 4.002 0 01-.041-2.08l-.08.08-1.53-1.533A5.98 5.98 0 004 10c0 .954.223 1.856.619 2.657l1.54-1.54zm1.088-6.45A5.974 5.974 0 0110 4c.954 0 1.856.223 2.657.619l-1.54 1.54a4.002 4.002 0 00-2.346.033L7.246 4.668z" clip-rule="evenodd"/></svg>
-      Support case
+      <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-2 0c0 .993-.241 1.929-.668 2.754l-1.524-1.525a3.997 3.997 0 00.078-2.183l1.562-1.562C15.802 8.249 16 9.1 16 10zm-5.165 3.913l1.58 1.58A5.98 5.98 0 0110 16a5.976 5.976 0 01-2.516-.552l1.562-1.562a4.006 4.006 0 001.789.027zm-4.677-2.796a4.002 4.002 0 01-.041-2.08l-.08.08-1.53-1.533A5.98 5.98 0 004 10c0 .954.223 1.856.619 2.657l1.54-1.54zm1.088-6.45A5.974 5.974 0 0110 4c.954 0 1.856.223 2.657.619l-1.54 1.54a4.002 4.002 0 00-2.346.033L7.246 4.668z" clip-rule="evenodd"/></svg>Support case
     </button>
     <button class="cat-btn" onclick="selectCat('tax',this)">
-      <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z" clip-rule="evenodd"/></svg>
-      Tax exempt process
+      <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z" clip-rule="evenodd"/></svg>Tax exempt process
     </button>
     <button class="cat-btn" onclick="selectCat('partner',this)">
-      <svg viewBox="0 0 20 20" fill="currentColor"><path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v1h8v-1zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-1a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v1h-3zM4.75 14.094A5.973 5.973 0 004 17v1H1v-1a3 3 0 013.75-2.906z"/></svg>
-      Partner process
+      <svg viewBox="0 0 20 20" fill="currentColor"><path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v1h8v-1zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-1a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v1h-3zM4.75 14.094A5.973 5.973 0 004 17v1H1v-1a3 3 0 013.75-2.906z"/></svg>Partner process
     </button>
   </div>
 
   <div class="panel" id="panel-internal"></div>
   <div class="panel" id="panel-support"></div>
 
-  <!-- TAX PANEL -->
   <div class="panel" id="panel-tax">
-    <div class="step-list">
+    <div class="notice" style="margin-bottom:1.5rem">
+      <svg viewBox="0 0 20 20" fill="currentColor" width="16" height="16" style="flex-shrink:0;margin-top:2px;color:var(--amber)"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/></svg>
+      <p style="font-size:13px;color:var(--amber-text)">Edit the tax exempt content via <strong>Admin → Global</strong> tab.</p>
+      <button class="inline-edit-btn" onclick="focusGlobalTab('g-tax-email')">✎ Edit</button>
+    </div>
+    <div class="step-list" id="tax-steps">
       <div class="step-item"><div class="step-num">1</div><div><p class="step-title">Get the tax certificate</p><p class="step-body">Request and obtain the tax exemption certificate from the customer before proceeding.</p></div></div>
-      <div class="step-item"><div class="step-num">2</div><div><p class="step-title">Forward the certificate via email</p><p class="step-body">Send the certificate to <strong>LastPassTax@lastpass.com</strong></p></div></div>
-      <div class="step-item"><div class="step-num">3</div><div><p class="step-title">Use this subject line</p><div class="subject-pill"><svg viewBox="0 0 20 20" fill="currentColor" width="14" height="14"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/><path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/></svg>Tax exempt request</div></div></div>
-      <div class="step-item"><div class="step-num">4</div><div style="width:100%"><p class="step-title">Use this email description</p><div class="template-box">Hi Team,
+      <div class="step-item"><div class="step-num">2</div><div><p class="step-title">Forward the certificate via email</p><p class="step-body">Send the certificate to <strong id="tax-email-display">LastPassTax@lastpass.com</strong></p></div></div>
+      <div class="step-item"><div class="step-num">3</div><div><p class="step-title">Use this subject line</p><div class="subject-pill" style="margin-top:6px"><svg viewBox="0 0 20 20" fill="currentColor" width="14" height="14"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/><path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/></svg><span id="tax-subject-display">Tax exempt request</span></div></div></div>
+      <div class="step-item"><div class="step-num">4</div><div style="width:100%"><p class="step-title">Use this email description</p><div class="template-box" id="tax-template-display">Hi Team,
 
 I'm requesting tax-exempt status on behalf of our customer. Kindly see the details below. If any additional information is needed, please let me know. Thank you for your assistance!
 
@@ -310,7 +316,6 @@ I'm requesting tax-exempt status on behalf of our customer. Kindly see the detai
     </div>
   </div>
 
-  <!-- PARTNER PANEL -->
   <div class="panel" id="panel-partner">
     <div class="scenario-tabs">
       <button class="sc-btn active" id="sc-btn-1" onclick="showScenario(1)">Scenario 1: Partner / Reseller</button>
@@ -335,72 +340,112 @@ I'm requesting tax-exempt status on behalf of our customer. Kindly see the detai
       <div class="flow-arrow">↓</div><div class="flow-step end">END: Complete all required information. Always double-check the <strong>Partner Details, Partner Representative, Quote, and PO number</strong>.</div>
     </div>
   </div>
-
 </main>
 
 <script>
 const PASS = 'Naizah@030';
+const STORE_KEY = 'lp_guide_data_v3';
 let isAdmin = false;
-let apState = { cat: 'internal', sub: null, ct: null };
+let apState = { cat:'internal', sub:null, ct:null };
+let vState  = { cat:null, sub:null, ct:null, st:null };
+let saveTimer = null;
 
-// ── DATA ────────────────────────────────────────────────────────────────────
-const data = {
+// ── DEFAULT DATA ─────────────────────────────────────────────────────────────
+const DEFAULT_DATA = {
+  global: {
+    pageTitle: 'LastPass · Resource Guide',
+    noticeText: '<strong>Every case must include:</strong> the <strong>Universal ID</strong>, the correct <strong>account information</strong>, and a full <strong>description of the request</strong>.',
+    taxEmail: 'LastPassTax@lastpass.com',
+    taxSubject: 'Tax exempt request',
+    taxTemplate: `Hi Team,\n\nI'm requesting tax-exempt status on behalf of our customer. Kindly see the details below. If any additional information is needed, please let me know. Thank you for your assistance!\n\n• Customer's full name\n• Phone number\n• Email address\n• UID or Zuora ID`
+  },
   internal: { subs: {
-    "Renewals — Salesforce managed": { note: `<svg viewBox="0 0 20 20" fill="currentColor" width="15" height="15" style="flex-shrink:0;margin-top:1px"><path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/></svg> Make sure the request is being made <strong>30 days or more prior to the renewal date</strong>. Otherwise, it will be rejected.`, subtypes: { "Zuora account management": [] }, caseTypes: {
-      "Renewal request": `<p>Create your <strong>subject</strong> and <strong>description</strong> for this case.</p><div class="info-box blue" style="margin-top:12px"><span class="info-box-title">Important note</span>Create this internal case <strong>only if the renewal is within 90 days</strong>.<br><br>If the renewal is <strong>more than 90 days out</strong>, it is considered <strong>New Business</strong> — create a new business opportunity instead.</div>`,
-      "Reduce licenses": `<p>Create your <strong>subject</strong> and <strong>description</strong> for this case.</p>`,
-      "Cancel subscription": `<p>Create your <strong>subject</strong> and <strong>description</strong> for this case.</p>`,
-      "Cancel invoice": `<p>Create your <strong>subject</strong> and <strong>description</strong> for this case.</p><div class="info-box red" style="margin-top:12px"><span class="info-box-title">Important</span>If the invoice has <strong>already been paid</strong>, do not submit here — submit to <strong>Customer Payment Support</strong> instead.</div>`,
-      "Downgrade subscription": `<p>Create your <strong>subject</strong> and <strong>description</strong> for this case.</p>`,
-      "BOSS to SF migration": `<p>Create your <strong>subject</strong> and <strong>description</strong> for this case.</p><div class="info-box red-full" style="margin-top:12px"><div style="display:flex;align-items:center;gap:8px;margin-bottom:8px"><svg viewBox="0 0 20 20" fill="currentColor" width="16" height="16" style="flex-shrink:0"><path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/></svg><strong>Only follow this process if the customer agrees to all of the following</strong></div><ul><li>Customers will <strong>no longer be able to purchase online</strong>. They must always go through a sales rep, renewals rep, or support.</li><li>The customer's <strong>credit card will not be saved</strong>, nor will the system autopay like it does in BOSS.</li><li>Customer will be <strong>unable to purchase add-ons or adjust license count</strong> through the Admin Console.</li><li>There is a <strong>12-month minimum requirement</strong> for subscriptions.</li></ul></div>`
+    "Renewals — Salesforce managed": { note: 'Make sure the request is being made <strong>30 days or more prior to the renewal date</strong>. Otherwise, it will be rejected.', subtypes:{"Zuora account management":[]}, caseTypes:{
+      "Renewal request":`<p>Create your <strong>subject</strong> and <strong>description</strong> for this case.</p><div class="info-box blue" style="margin-top:12px"><span class="info-box-title">Important note</span>Create this internal case <strong>only if the renewal is within 90 days</strong>.<br><br>If the renewal is <strong>more than 90 days out</strong>, it is considered <strong>New Business</strong> — create a new business opportunity instead.</div>`,
+      "Reduce licenses":`<p>Create your <strong>subject</strong> and <strong>description</strong> for this case.</p>`,
+      "Cancel subscription":`<p>Create your <strong>subject</strong> and <strong>description</strong> for this case.</p>`,
+      "Cancel invoice":`<p>Create your <strong>subject</strong> and <strong>description</strong> for this case.</p><div class="info-box red" style="margin-top:12px"><span class="info-box-title">Important</span>If the invoice has <strong>already been paid</strong>, do not submit here — submit to <strong>Customer Payment Support</strong> instead.</div>`,
+      "Downgrade subscription":`<p>Create your <strong>subject</strong> and <strong>description</strong> for this case.</p>`,
+      "BOSS to SF migration":`<p>Create your <strong>subject</strong> and <strong>description</strong> for this case.</p><div class="info-box red-full" style="margin-top:12px"><div style="display:flex;align-items:center;gap:8px;margin-bottom:8px"><svg viewBox="0 0 20 20" fill="currentColor" width="16" height="16" style="flex-shrink:0"><path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/></svg><strong>Only follow this process if the customer agrees to all of the following</strong></div><ul><li>Customers will <strong>no longer be able to purchase online</strong>. They must always go through a sales rep, renewals rep, or support.</li><li>The customer's <strong>credit card will not be saved</strong>, nor will the system autopay like it does in BOSS.</li><li>Customer will be <strong>unable to purchase add-ons or adjust license count</strong> through the Admin Console.</li><li>There is a <strong>12-month minimum requirement</strong> for subscriptions.</li></ul></div>`
     }},
-    "Billing": { note: null, subtypes: { "Zuora account management": ["Zuora trial extension","Upgrade plan Zuora manage account","Zuora account cancellation","Zuora auto renewal disablement","Zuora refund request","Zuora billing information updates"] }, caseTypes: {
-      "Zuora account management": `<p>Create your <strong>subject</strong> and <strong>description</strong> for this case.</p>`
+    "Billing":{ note:null, subtypes:{"Zuora account management":["Zuora trial extension","Upgrade plan Zuora manage account","Zuora account cancellation","Zuora auto renewal disablement","Zuora refund request","Zuora billing information updates"]}, caseTypes:{
+      "Zuora account management":`<p>Create your <strong>subject</strong> and <strong>description</strong> for this case.</p>`
     }},
-    "Revenue operations": { note: null, subtypes: {}, caseTypes: {
-      "Missing licenses": `<p>Create your <strong>subject</strong> and <strong>description</strong> for this case.</p><div class="info-box blue" style="margin-top:12px"><span class="info-box-title">Use this case type when</span>The purchased licenses are <strong>not reflecting on the customer's end</strong> — the actual license count does not match what was provisioned.</div>`
+    "Revenue operations":{ note:null, subtypes:{}, caseTypes:{
+      "Missing licenses":`<p>Create your <strong>subject</strong> and <strong>description</strong> for this case.</p><div class="info-box blue" style="margin-top:12px"><span class="info-box-title">Use this case type when</span>The purchased licenses are <strong>not reflecting on the customer's end</strong> — the actual license count does not match what was provisioned.</div>`
     }},
-    "General questions": { note: null, subtypes: {}, caseTypes: {
-      "Merge accounts": `<p style="margin-bottom:8px">Use the description template below for merge account requests.</p><div class="template-box">Hi Team,\n\nI'm requesting assistance with merging the two contacts [FDC IT]. Please let me know if you need any additional details from my end. Thank you!\n\nInfo to keep:\nName: FDC IT\nContact: (559) 213-2177\nEmail: it_master@fresnodiscoverycenter.org</div>`,
-      "Re-route to another AE": `<p>Requesting to reroute the lead, employee size is out of scope.</p><div class="info-box amber" style="margin-top:12px;margin-bottom:12px"><span class="info-box-title">When to re-route</span>Re-route to another AE if the employee size is <strong>more than 50</strong>.</div><p style="margin-bottom:8px">Use this description template:</p><div class="template-box">Hi team,\n\nHi team, please reroute this lead to the correct AE. Thanks!</div>`
+    "General questions":{ note:null, subtypes:{}, caseTypes:{
+      "Merge accounts":`<p style="margin-bottom:8px">Use the description template below for merge account requests.</p><div class="template-box">Hi Team,\n\nI'm requesting assistance with merging the two contacts [FDC IT]. Please let me know if you need any additional details from my end. Thank you!\n\nInfo to keep:\nName: FDC IT\nContact: (559) 213-2177\nEmail: it_master@fresnodiscoverycenter.org</div>`,
+      "Re-route to another AE":`<p>Re-route this case to another Account Executive.</p><div class="info-box amber" style="margin-top:12px;margin-bottom:12px"><span class="info-box-title">When to re-route</span>Re-route to another AE if the employee size is <strong>more than 50</strong>.</div><p style="margin-bottom:8px">Use this description template:</p><div class="template-box">Hi team,\n\nRequesting to re-route this contact out of name as the employee size is more than 49 and it is out of our scope.</div>`
     }},
-    "Customer payment support": { note: null, subtypes: {}, caseTypes: {
-      "Refunds — invoice / wire transfer": `<p>Create your <strong>subject</strong> and <strong>description</strong> for this case.</p><div class="info-box blue" style="margin-top:12px"><span class="info-box-title">Scope</span>For refunds on transactions made via <strong>invoice or wire transfer</strong> on <strong>SF-managed accounts</strong> only.</div>`,
-      "Unban invoiced account": `<p>Create your <strong>subject</strong> and <strong>description</strong> for this case.</p><div class="info-box blue" style="margin-top:12px"><strong>Proof of Payment (PoP)</strong> must be provided by the customer. Use this to <strong>remove a BAN for non-payment</strong> on SF-managed accounts.</div>`,
-      "Vendor form assistance": `<p>Create your <strong>subject</strong> and <strong>description</strong> for this case.</p><div class="info-box blue" style="margin-top:12px"><span class="info-box-title">When to use</span>Use for <strong>customer vendor form signatures</strong> or to fill out <strong>incomplete customer vendor forms</strong>.</div>`,
-      "Mark invoice as paid": `<p>Create your <strong>subject</strong> and <strong>description</strong> for this case.</p><div class="info-box blue" style="margin-top:12px">Mark pending invoices as paid <strong>only if the customer can share a valid Proof of Payment</strong>.</div>`,
-      "Invoice copy / assistance": `<p>Create your <strong>subject</strong> and <strong>description</strong> for this case.</p>`
+    "Customer payment support":{ note:null, subtypes:{}, caseTypes:{
+      "Refunds — invoice / wire transfer":`<p>Create your <strong>subject</strong> and <strong>description</strong> for this case.</p><div class="info-box blue" style="margin-top:12px"><span class="info-box-title">Scope</span>For refunds on transactions made via <strong>invoice or wire transfer</strong> on <strong>SF-managed accounts</strong> only.</div>`,
+      "Unban invoiced account":`<p>Create your <strong>subject</strong> and <strong>description</strong> for this case.</p><div class="info-box blue" style="margin-top:12px"><strong>Proof of Payment (PoP)</strong> must be provided by the customer. Use this to <strong>remove a BAN for non-payment</strong> on SF-managed accounts.</div>`,
+      "Vendor form assistance":`<p>Create your <strong>subject</strong> and <strong>description</strong> for this case.</p><div class="info-box blue" style="margin-top:12px"><span class="info-box-title">When to use</span>Use for <strong>customer vendor form signatures</strong> or to fill out <strong>incomplete customer vendor forms</strong>.</div>`,
+      "Mark invoice as paid":`<p>Create your <strong>subject</strong> and <strong>description</strong> for this case.</p><div class="info-box blue" style="margin-top:12px">Mark pending invoices as paid <strong>only if the customer can share a valid Proof of Payment</strong>.</div>`,
+      "Invoice copy / assistance":`<p>Create your <strong>subject</strong> and <strong>description</strong> for this case.</p>`
     }}
   }},
   support: { subs: {
-    "Cancel personal subscription": { note: null, subtypes: {}, caseTypes: {
-      "Premium or Families plan": `<p>This case type applies to personal <strong>Premium</strong> or <strong>Families</strong> plan cancellations.</p><div class="info-box blue" style="margin-top:12px"><span class="info-box-title">Action required</span>Pass this request to <strong>Care</strong> for handling.</div>`
+    "Cancel personal subscription":{ note:null, subtypes:{}, caseTypes:{
+      "Premium or Families plan":`<p>This case type applies to personal <strong>Premium</strong> or <strong>Families</strong> plan cancellations.</p><div class="info-box blue" style="margin-top:12px"><span class="info-box-title">Action required</span>Pass this request to <strong>Care</strong> for handling.</div>`
     }},
-    "Technical support": { note: null, subtypes: {}, caseTypes: {} },
-    "Account issues": { note: null, subtypes: {}, caseTypes: {} }
+    "Technical support":{ note:null, subtypes:{}, caseTypes:{} },
+    "Account issues":{ note:null, subtypes:{}, caseTypes:{} }
   }}
 };
 
-// ── VIEW STATE ───────────────────────────────────────────────────────────────
-let vState = { cat: null, sub: null, ct: null, st: null };
-
-function selectCat(cat, btn) {
-  vState = { cat, sub:null, ct:null, st:null };
-  document.querySelectorAll('.cat-btn').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  ['internal','support','tax','partner'].forEach(c => document.getElementById('panel-'+c).classList.remove('visible'));
-  document.getElementById('panel-'+cat).classList.add('visible');
-  if (cat==='internal'||cat==='support') renderSubs(cat);
+// ── STORAGE ───────────────────────────────────────────────────────────────────
+let D = loadData();
+function loadData(){
+  try {
+    const saved = localStorage.getItem(STORE_KEY);
+    if(saved) return JSON.parse(saved);
+  } catch(e){}
+  return JSON.parse(JSON.stringify(DEFAULT_DATA));
+}
+function saveData(){
+  try { localStorage.setItem(STORE_KEY, JSON.stringify(D)); } catch(e){}
+  showToast();
+}
+function showToast(){
+  clearTimeout(saveTimer);
+  const t = document.getElementById('saved-toast');
+  t.classList.add('show');
+  saveTimer = setTimeout(()=>t.classList.remove('show'), 2000);
 }
 
-function renderSubs(cat) {
+// ── INIT ──────────────────────────────────────────────────────────────────────
+window.addEventListener('DOMContentLoaded', ()=>{
+  applyGlobal();
+});
+function applyGlobal(){
+  const g = D.global;
+  document.title = g.pageTitle;
+  document.querySelector('.header-title').textContent = g.pageTitle;
+  document.getElementById('notice-text').innerHTML = g.noticeText;
+  document.getElementById('tax-email-display').textContent = g.taxEmail;
+  document.getElementById('tax-subject-display').textContent = g.taxSubject;
+  document.getElementById('tax-template-display').textContent = g.taxTemplate;
+}
+
+// ── VIEW ──────────────────────────────────────────────────────────────────────
+function selectCat(cat, btn){
+  vState = {cat,sub:null,ct:null,st:null};
+  document.querySelectorAll('.cat-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  ['internal','support','tax','partner'].forEach(c=>document.getElementById('panel-'+c).classList.remove('visible'));
+  document.getElementById('panel-'+cat).classList.add('visible');
+  if(cat==='internal'||cat==='support') renderSubs(cat);
+}
+function renderSubs(cat){
   const panel = document.getElementById('panel-'+cat);
-  const subs = Object.keys(data[cat].subs);
+  const subs = Object.keys(D[cat].subs);
   panel.innerHTML = `
     <p class="section-label">Choose a subcategory</p>
     <div class="sub-row" id="v-sub-row">
       ${subs.map(s=>`<button class="sub-btn" id="vsub-${eid(s)}" onclick="vSelectSub('${cat}','${es(s)}')">${s}</button>`).join('')}
-      <button class="add-btn" onclick="openAdminPanel('${cat}','sub')">+ Add subcategory</button>
+      <button class="add-btn" onclick="openAdminTo('${cat}','sub')">+ Add subcategory</button>
     </div>
     <div id="v-subnote" class="sub-note"></div>
     <div id="v-ct-wrap" style="display:none">
@@ -416,67 +461,60 @@ function renderSubs(cat) {
         <div class="instruction-header">
           <span class="breadcrumb" id="v-breadcrumb"></span>
           <div class="instruction-actions">
-            <button class="iaction-btn" onclick="openAdminPanel('${cat}','inst')">✎ Edit instructions</button>
+            <button class="iaction-btn" onclick="openAdminTo('${cat}','inst')">✎ Edit instructions</button>
           </div>
         </div>
         <div class="instruction-body" id="v-inst-body"></div>
       </div>
     </div>`;
 }
-
-function vSelectSub(cat, sub) {
-  vState.sub=sub; vState.ct=null; vState.st=null;
+function vSelectSub(cat,sub){
+  vState.sub=sub;vState.ct=null;vState.st=null;
   document.querySelectorAll('#v-sub-row .sub-btn').forEach(b=>b.classList.remove('active'));
-  const btn = document.getElementById('vsub-'+eid(sub));
-  if(btn) btn.classList.add('active');
-  const sd = data[cat].subs[sub];
-  const noteEl = document.getElementById('v-subnote');
-  if(sd.note){ noteEl.innerHTML=sd.note; noteEl.classList.add('show'); } else { noteEl.classList.remove('show'); noteEl.innerHTML=''; }
-  const cts = Object.keys(sd.caseTypes);
-  const ctRow = document.getElementById('v-ct-row');
-  ctRow.innerHTML = cts.map(ct=>`<button class="ct-btn" id="vct-${eid(ct)}" onclick="vSelectCT('${cat}','${es(sub)}','${es(ct)}')">${ct}</button>`).join('')
-    + `<button class="add-btn" onclick="openAdminPanel('${cat}','ct','${es(sub)}')">+ Add case type</button>`;
+  const b=document.getElementById('vsub-'+eid(sub));if(b)b.classList.add('active');
+  const sd=D[cat].subs[sub];
+  const noteEl=document.getElementById('v-subnote');
+  if(sd.note){noteEl.innerHTML=sd.note;noteEl.classList.add('show');}else{noteEl.classList.remove('show');noteEl.innerHTML='';}
+  const cts=Object.keys(sd.caseTypes);
+  document.getElementById('v-ct-row').innerHTML=cts.map(ct=>`<button class="ct-btn" id="vct-${eid(ct)}" onclick="vSelectCT('${cat}','${es(sub)}','${es(ct)}')">${ct}</button>`).join('')
+    +`<button class="add-btn" onclick="openAdminTo('${cat}','ct','${es(sub)}')">+ Add case type</button>`;
   document.getElementById('v-ct-wrap').style.display='block';
   document.getElementById('v-st-wrap').style.display='none';
   document.getElementById('v-inst-wrap').style.display='none';
-  if(isAdmin) apSelectSub(sub);
+  if(isAdmin){apState.sub=sub;apRenderAll();}
 }
-
-function vSelectCT(cat, sub, ct) {
-  vState.ct=ct; vState.st=null;
+function vSelectCT(cat,sub,ct){
+  vState.ct=ct;vState.st=null;
   document.querySelectorAll('#v-ct-row .ct-btn').forEach(b=>b.classList.remove('active'));
-  const btn=document.getElementById('vct-'+eid(ct)); if(btn) btn.classList.add('active');
-  const sd=data[cat].subs[sub];
-  const stList = sd.subtypes && sd.subtypes[ct] ? sd.subtypes[ct] : [];
+  const b=document.getElementById('vct-'+eid(ct));if(b)b.classList.add('active');
+  const sd=D[cat].subs[sub];
+  const stList=(sd.subtypes&&sd.subtypes[ct])||[];
   if(stList.length>0){
-    const stRow=document.getElementById('v-st-row');
-    stRow.innerHTML=stList.map(st=>`<button class="st-btn" id="vst-${eid(st)}" onclick="vSelectST('${cat}','${es(sub)}','${es(ct)}','${es(st)}')">${st}</button>`).join('')
-      +`<button class="add-btn" onclick="openAdminPanel('${cat}','st','${es(sub)}','${es(ct)}')">+ Add subtype</button>`;
+    document.getElementById('v-st-row').innerHTML=stList.map(st=>`<button class="st-btn" id="vst-${eid(st)}" onclick="vSelectST('${cat}','${es(sub)}','${es(ct)}','${es(st)}')">${st}</button>`).join('')
+      +`<button class="add-btn" onclick="openAdminTo('${cat}','st','${es(sub)}','${es(ct)}')">+ Add subtype</button>`;
     document.getElementById('v-st-wrap').style.display='block';
     document.getElementById('v-inst-wrap').style.display='none';
   } else {
     document.getElementById('v-st-wrap').style.display='none';
-    showInst(cat,sub,ct,null);
+    showInst(cat,sub,ct);
   }
-  if(isAdmin) apSelectCT(ct);
+  if(isAdmin){apState.ct=ct;apRenderAll();}
 }
-
 function vSelectST(cat,sub,ct,st){
   vState.st=st;
   document.querySelectorAll('#v-st-row .st-btn').forEach(b=>b.classList.remove('active'));
-  const btn=document.getElementById('vst-'+eid(st)); if(btn) btn.classList.add('active');
-  showInst(cat,sub,ct,st);
+  const b=document.getElementById('vst-'+eid(st));if(b)b.classList.add('active');
+  showInst(cat,sub,ct);
 }
-
-function showInst(cat,sub,ct,st){
-  const html=data[cat].subs[sub].caseTypes[ct]||'<p style="color:var(--text-faint)">No instructions added yet.</p>';
-  const bc=st?`${sub} › ${ct} › ${st}`:`${sub} › ${ct}`;
+function showInst(cat,sub,ct){
+  const html=D[cat].subs[sub].caseTypes[ct]||'<p style="color:var(--text-faint)">No instructions yet.</p>';
+  const bc=vState.st?`${sub} › ${ct} › ${vState.st}`:`${sub} › ${ct}`;
   document.getElementById('v-breadcrumb').textContent=bc;
   document.getElementById('v-inst-body').innerHTML=html;
   document.getElementById('v-inst-wrap').style.display='block';
 }
 
-// ── SCENARIO ─────────────────────────────────────────────────────────────────
+// ── SCENARIOS ─────────────────────────────────────────────────────────────────
 function showScenario(n){
   [1,2].forEach(i=>{
     document.getElementById('sc-btn-'+i).classList.toggle('active',i===n);
@@ -486,7 +524,7 @@ function showScenario(n){
 
 // ── AUTH ──────────────────────────────────────────────────────────────────────
 function toggleAdmin(){
-  if(isAdmin){ logoutAdmin(); return; }
+  if(isAdmin){logoutAdmin();return;}
   document.getElementById('login-modal').classList.add('open');
   setTimeout(()=>document.getElementById('pw-input').focus(),100);
 }
@@ -497,7 +535,7 @@ function checkPw(){
     document.getElementById('admin-btn').classList.add('active');
     document.getElementById('edit-badge').classList.add('visible');
     closeLogin();
-    openAdminPanel(vState.cat||'internal');
+    openAdminPanel();
   } else {
     document.getElementById('pw-error').style.display='block';
     document.getElementById('pw-input').value='';
@@ -518,35 +556,60 @@ function logoutAdmin(){
 }
 
 // ── ADMIN PANEL ───────────────────────────────────────────────────────────────
-function openAdminPanel(cat, focus, sub, ct){
+function openAdminPanel(){
   document.getElementById('admin-panel').classList.add('open');
-  document.getElementById('main-content').style.marginRight='420px';
-  apSelectCat(cat||apState.cat);
-  if(sub) { apState.sub=sub; apSelectSub(sub); }
-  if(ct)  { apState.ct=ct; apSelectCT(ct); }
-  if(focus==='inst' && vState.ct) apLoadInst();
+  document.getElementById('main-content').style.marginRight='440px';
+  apSelectCat(apState.cat);
+  loadGlobalTab();
 }
 function closeAdminPanel(){
   document.getElementById('admin-panel').classList.remove('open');
   document.getElementById('main-content').style.marginRight='0';
 }
-
-function apSelectCat(cat){
-  apState.cat=cat; apState.sub=null; apState.ct=null;
-  document.querySelectorAll('.ap-cat-btn').forEach(b=>b.classList.remove('active'));
-  document.getElementById('ap-cat-'+cat).classList.add('active');
-  apRenderSubs();
-  document.getElementById('ap-note-section').style.display='none';
-  document.getElementById('ap-ct-section').style.display='none';
-  document.getElementById('ap-st-section').style.display='none';
-  document.getElementById('ap-inst-section').style.display='none';
+function openAdminTo(cat,focus,sub,ct){
+  if(!isAdmin) return;
+  openAdminPanel();
+  apSelectCat(cat);
+  if(sub){apState.sub=sub;apSelectSub(sub);}
+  if(ct){apState.ct=ct;apSelectCT(ct);}
+  if(focus==='inst'){switchApTab('content');document.getElementById('ap-inst-text').focus();}
+  else if(focus==='sub'){switchApTab('structure');}
+  else if(focus==='ct'){switchApTab('structure');}
+  else if(focus==='st'){switchApTab('structure');}
+}
+function switchApTab(name){
+  document.querySelectorAll('.ap-tab').forEach((t,i)=>{
+    const names=['structure','content','global'];
+    t.classList.toggle('active',names[i]===name);
+  });
+  document.querySelectorAll('.ap-tab-content').forEach(c=>c.classList.remove('active'));
+  document.getElementById('ap-tab-'+name).classList.add('active');
+}
+function focusGlobalTab(fieldId){
+  if(!isAdmin){openAdminPanel();}
+  switchApTab('global');
+  setTimeout(()=>document.getElementById(fieldId).focus(),100);
 }
 
+// ── AP RENDER ─────────────────────────────────────────────────────────────────
+function apSelectCat(cat){
+  apState.cat=cat;apState.sub=null;apState.ct=null;
+  document.querySelectorAll('.ap-cat-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('ap-cat-'+cat).classList.add('active');
+  apRenderAll();
+  document.getElementById('ap-ct-section').style.display='none';
+  document.getElementById('ap-st-section').style.display='none';
+}
+function apRenderAll(){
+  apRenderSubs();
+  if(apState.sub) apRenderCTs();
+  if(apState.ct)  apRenderSTs();
+  apLoadNoteField();
+  apLoadInstField();
+}
 function apRenderSubs(){
-  const cat=apState.cat;
-  const list=document.getElementById('ap-sub-list');
-  list.innerHTML=Object.keys(data[cat].subs).map(s=>`
-    <div class="ap-item ${apState.sub===s?'selected':''}" id="apsi-${eid(s)}" onclick="apSelectSub('${es(s)}')">
+  document.getElementById('ap-sub-list').innerHTML=Object.keys(D[apState.cat].subs).map(s=>`
+    <div class="ap-item${apState.sub===s?' selected':''}" onclick="apSelectSub('${es(s)}')">
       <span class="ap-item-name">${s}</span>
       <div class="ap-item-actions">
         <button class="ap-icon-btn" title="Rename" onclick="event.stopPropagation();apRenameSub('${es(s)}')">✏</button>
@@ -554,17 +617,11 @@ function apRenderSubs(){
       </div>
     </div>`).join('');
 }
-
-function apSelectSub(sub){
-  apState.sub=sub; apState.ct=null;
-  apRenderSubs();
-  const sd=data[apState.cat].subs[sub];
-  document.getElementById('ap-note-section').style.display='block';
-  document.getElementById('ap-note-text').value=sd.note?sd.note.replace(/<[^>]+>/g,''):'';
-  document.getElementById('ap-ct-sub-label').textContent=sub;
-  const list=document.getElementById('ap-ct-list');
-  list.innerHTML=Object.keys(sd.caseTypes).map(ct=>`
-    <div class="ap-item ${apState.ct===ct?'selected':''}" id="apci-${eid(ct)}" onclick="apSelectCT('${es(ct)}')">
+function apRenderCTs(){
+  if(!apState.sub) return;
+  document.getElementById('ap-ct-sub-label').textContent=apState.sub;
+  document.getElementById('ap-ct-list').innerHTML=Object.keys(D[apState.cat].subs[apState.sub].caseTypes).map(ct=>`
+    <div class="ap-item${apState.ct===ct?' selected':''}" onclick="apSelectCT('${es(ct)}')">
       <span class="ap-item-name">${ct}</span>
       <div class="ap-item-actions">
         <button class="ap-icon-btn" title="Rename" onclick="event.stopPropagation();apRenameCT('${es(ct)}')">✏</button>
@@ -572,131 +629,162 @@ function apSelectSub(sub){
       </div>
     </div>`).join('');
   document.getElementById('ap-ct-section').style.display='block';
-  document.getElementById('ap-st-section').style.display='none';
-  document.getElementById('ap-inst-section').style.display='none';
 }
-
-function apSelectCT(ct){
-  apState.ct=ct;
-  apSelectSub(apState.sub); // re-render to update selected state
-  const sd=data[apState.cat].subs[apState.sub];
-  const stList=(sd.subtypes&&sd.subtypes[ct])||[];
-  document.getElementById('ap-st-ct-label').textContent=ct;
-  const stL=document.getElementById('ap-st-list');
-  stL.innerHTML=stList.map(st=>`
+function apRenderSTs(){
+  if(!apState.sub||!apState.ct) return;
+  const sd=D[apState.cat].subs[apState.sub];
+  const stList=(sd.subtypes&&sd.subtypes[apState.ct])||[];
+  document.getElementById('ap-st-ct-label').textContent=apState.ct;
+  document.getElementById('ap-st-list').innerHTML=stList.map(st=>`
     <div class="ap-item">
       <span class="ap-item-name">${st}</span>
       <div class="ap-item-actions">
-        <button class="ap-icon-btn del" title="Delete" onclick="event.stopPropagation();apDeleteST('${es(ct)}','${es(st)}')">🗑</button>
+        <button class="ap-icon-btn del" title="Delete" onclick="apDeleteST('${es(apState.ct)}','${es(st)}')">🗑</button>
       </div>
     </div>`).join('');
   document.getElementById('ap-st-section').style.display='block';
-  apLoadInst();
+}
+function apLoadNoteField(){
+  if(!apState.sub){document.getElementById('ap-note-label').textContent='select a subcategory first';document.getElementById('ap-note-text').value='';return;}
+  document.getElementById('ap-note-label').textContent=apState.sub;
+  document.getElementById('ap-note-text').value=D[apState.cat].subs[apState.sub].note||'';
+}
+function apLoadInstField(){
+  if(!apState.sub||!apState.ct){document.getElementById('ap-inst-label').textContent='select a case type first';document.getElementById('ap-inst-text').value='';return;}
+  document.getElementById('ap-inst-label').textContent=apState.ct;
+  document.getElementById('ap-inst-text').value=D[apState.cat].subs[apState.sub].caseTypes[apState.ct]||'';
 }
 
-function apLoadInst(){
+// ── AP SELECT ─────────────────────────────────────────────────────────────────
+function apSelectSub(sub){
+  apState.sub=sub;apState.ct=null;
+  apRenderSubs();apRenderCTs();
+  document.getElementById('ap-st-section').style.display='none';
+  apLoadNoteField();apLoadInstField();
+}
+function apSelectCT(ct){
+  apState.ct=ct;
+  apRenderCTs();apRenderSTs();
+  apLoadInstField();
+}
+
+// ── AP AUTO-SAVE ──────────────────────────────────────────────────────────────
+function apAutoSaveNote(){
+  if(!apState.sub) return;
+  const val=document.getElementById('ap-note-text').value.trim();
+  D[apState.cat].subs[apState.sub].note=val||null;
+  // live update view
+  if(vState.sub===apState.sub){
+    const noteEl=document.getElementById('v-subnote');
+    if(val){noteEl.innerHTML=val;noteEl.classList.add('show');}else{noteEl.classList.remove('show');noteEl.innerHTML='';}
+  }
+  saveData();
+}
+function apAutoSaveInst(){
   if(!apState.sub||!apState.ct) return;
-  const html=data[apState.cat].subs[apState.sub].caseTypes[apState.ct]||'';
-  document.getElementById('ap-inst-label').textContent=apState.ct;
-  document.getElementById('ap-inst-text').value=html;
-  document.getElementById('ap-inst-section').style.display='block';
+  const val=document.getElementById('ap-inst-text').value;
+  D[apState.cat].subs[apState.sub].caseTypes[apState.ct]=val;
+  // live update view
+  if(vState.ct===apState.ct && document.getElementById('v-inst-body')){
+    document.getElementById('v-inst-body').innerHTML=val;
+  }
+  saveData();
 }
 
 // ── AP ACTIONS ────────────────────────────────────────────────────────────────
 function apAddSub(){
-  const name=document.getElementById('ap-new-sub').value.trim(); if(!name) return;
-  if(data[apState.cat].subs[name]){ alert('Subcategory already exists.'); return; }
-  data[apState.cat].subs[name]={note:null,subtypes:{},caseTypes:{}};
+  const name=document.getElementById('ap-new-sub').value.trim();if(!name)return;
+  if(D[apState.cat].subs[name]){alert('Already exists.');return;}
+  D[apState.cat].subs[name]={note:null,subtypes:{},caseTypes:{}};
   document.getElementById('ap-new-sub').value='';
-  apRenderSubs();
-  if(vState.cat===apState.cat) renderSubs(apState.cat);
+  saveData();apRenderSubs();if(vState.cat===apState.cat)renderSubs(apState.cat);
 }
 function apDeleteSub(sub){
-  if(!confirm(`Delete subcategory "${sub}"? This will remove all its case types too.`)) return;
-  delete data[apState.cat].subs[sub];
+  if(!confirm(`Delete "${sub}" and all its content?`))return;
+  delete D[apState.cat].subs[sub];
   if(apState.sub===sub){apState.sub=null;apState.ct=null;}
-  apRenderSubs();
-  document.getElementById('ap-note-section').style.display='none';
+  saveData();apRenderAll();
   document.getElementById('ap-ct-section').style.display='none';
   document.getElementById('ap-st-section').style.display='none';
-  document.getElementById('ap-inst-section').style.display='none';
-  if(vState.cat===apState.cat) renderSubs(apState.cat);
+  if(vState.cat===apState.cat)renderSubs(apState.cat);
 }
 function apRenameSub(sub){
-  const nn=prompt('Rename subcategory:',sub); if(!nn||nn===sub) return;
-  const sd=data[apState.cat].subs[sub];
-  data[apState.cat].subs[nn]=sd;
-  delete data[apState.cat].subs[sub];
-  if(apState.sub===sub) apState.sub=nn;
-  apRenderSubs();
-  if(vState.cat===apState.cat) renderSubs(apState.cat);
-}
-function apSaveNote(){
-  const raw=document.getElementById('ap-note-text').value.trim();
-  data[apState.cat].subs[apState.sub].note=raw||null;
-  if(vState.sub===apState.sub){
-    const noteEl=document.getElementById('v-subnote');
-    if(raw){noteEl.innerHTML=raw;noteEl.classList.add('show');}else{noteEl.classList.remove('show');noteEl.innerHTML='';}
-  }
-  alert('Note saved!');
+  const nn=prompt('Rename:',sub);if(!nn||nn===sub)return;
+  const val=D[apState.cat].subs[sub];
+  D[apState.cat].subs[nn]=val;delete D[apState.cat].subs[sub];
+  if(apState.sub===sub)apState.sub=nn;
+  saveData();apRenderAll();if(vState.cat===apState.cat)renderSubs(apState.cat);
 }
 function apAddCT(){
-  const name=document.getElementById('ap-new-ct').value.trim(); if(!name) return;
-  const sd=data[apState.cat].subs[apState.sub];
-  if(sd.caseTypes[name]){alert('Case type already exists.');return;}
+  const name=document.getElementById('ap-new-ct').value.trim();if(!name)return;
+  const sd=D[apState.cat].subs[apState.sub];
+  if(sd.caseTypes[name]){alert('Already exists.');return;}
   sd.caseTypes[name]='<p>Add instructions here.</p>';
   document.getElementById('ap-new-ct').value='';
-  apSelectSub(apState.sub);
-  if(vState.sub===apState.sub) vSelectSub(apState.cat,apState.sub);
+  saveData();apRenderCTs();if(vState.sub===apState.sub)vSelectSub(apState.cat,apState.sub);
 }
 function apDeleteCT(ct){
-  if(!confirm(`Delete case type "${ct}"?`)) return;
-  delete data[apState.cat].subs[apState.sub].caseTypes[ct];
-  if(apState.ct===ct){apState.ct=null;}
-  apSelectSub(apState.sub);
-  if(vState.sub===apState.sub) vSelectSub(apState.cat,apState.sub);
+  if(!confirm(`Delete case type "${ct}"?`))return;
+  delete D[apState.cat].subs[apState.sub].caseTypes[ct];
+  if(apState.ct===ct)apState.ct=null;
+  saveData();apRenderCTs();if(vState.sub===apState.sub)vSelectSub(apState.cat,apState.sub);
 }
 function apRenameCT(ct){
-  const nn=prompt('Rename case type:',ct); if(!nn||nn===ct) return;
-  const sd=data[apState.cat].subs[apState.sub];
-  const val=sd.caseTypes[ct];
-  sd.caseTypes[nn]=val;
-  delete sd.caseTypes[ct];
-  if(apState.ct===ct) apState.ct=nn;
-  apSelectSub(apState.sub);
-  if(vState.sub===apState.sub) vSelectSub(apState.cat,apState.sub);
+  const nn=prompt('Rename:',ct);if(!nn||nn===ct)return;
+  const sd=D[apState.cat].subs[apState.sub];
+  sd.caseTypes[nn]=sd.caseTypes[ct];delete sd.caseTypes[ct];
+  if(apState.ct===ct)apState.ct=nn;
+  saveData();apRenderCTs();if(vState.sub===apState.sub)vSelectSub(apState.cat,apState.sub);
 }
 function apAddST(){
-  const name=document.getElementById('ap-new-st').value.trim(); if(!name) return;
-  const sd=data[apState.cat].subs[apState.sub];
-  if(!sd.subtypes) sd.subtypes={};
-  if(!sd.subtypes[apState.ct]) sd.subtypes[apState.ct]=[];
-  if(sd.subtypes[apState.ct].includes(name)){alert('Subtype already exists.');return;}
+  const name=document.getElementById('ap-new-st').value.trim();if(!name)return;
+  const sd=D[apState.cat].subs[apState.sub];
+  if(!sd.subtypes)sd.subtypes={};if(!sd.subtypes[apState.ct])sd.subtypes[apState.ct]=[];
+  if(sd.subtypes[apState.ct].includes(name)){alert('Already exists.');return;}
   sd.subtypes[apState.ct].push(name);
   document.getElementById('ap-new-st').value='';
-  apSelectCT(apState.ct);
-  if(vState.ct===apState.ct) vSelectCT(apState.cat,apState.sub,apState.ct);
+  saveData();apRenderSTs();if(vState.ct===apState.ct)vSelectCT(apState.cat,apState.sub,apState.ct);
 }
 function apDeleteST(ct,st){
-  if(!confirm(`Delete subtype "${st}"?`)) return;
-  const arr=data[apState.cat].subs[apState.sub].subtypes[ct];
-  const idx=arr.indexOf(st); if(idx>-1) arr.splice(idx,1);
-  apSelectCT(ct);
-  if(vState.ct===ct) vSelectCT(apState.cat,apState.sub,ct);
+  if(!confirm(`Delete subtype "${st}"?`))return;
+  const arr=D[apState.cat].subs[apState.sub].subtypes[ct];
+  const i=arr.indexOf(st);if(i>-1)arr.splice(i,1);
+  saveData();apRenderSTs();if(vState.ct===ct)vSelectCT(apState.cat,apState.sub,ct);
 }
-function apSaveInst(){
-  const html=document.getElementById('ap-inst-text').value;
-  data[apState.cat].subs[apState.sub].caseTypes[apState.ct]=html;
-  if(vState.ct===apState.ct){
-    document.getElementById('v-inst-body').innerHTML=html;
-  }
-  alert('Instructions saved!');
+
+// ── GLOBAL TAB ────────────────────────────────────────────────────────────────
+function loadGlobalTab(){
+  const g=D.global;
+  document.getElementById('g-page-title').value=g.pageTitle;
+  document.getElementById('g-notice-text').value=g.noticeText;
+  document.getElementById('g-tax-email').value=g.taxEmail;
+  document.getElementById('g-tax-subject').value=g.taxSubject;
+  document.getElementById('g-tax-template').value=g.taxTemplate;
+}
+function gSaveTitle(){
+  D.global.pageTitle=document.getElementById('g-page-title').value||'LastPass · Resource Guide';
+  document.title=D.global.pageTitle;
+  document.querySelector('.header-title').textContent=D.global.pageTitle;
+  saveData();
+}
+function gSaveNotice(){
+  D.global.noticeText=document.getElementById('g-notice-text').value;
+  document.getElementById('notice-text').innerHTML=D.global.noticeText;
+  saveData();
+}
+function gSaveTax(){
+  D.global.taxEmail=document.getElementById('g-tax-email').value;
+  D.global.taxSubject=document.getElementById('g-tax-subject').value;
+  D.global.taxTemplate=document.getElementById('g-tax-template').value;
+  document.getElementById('tax-email-display').textContent=D.global.taxEmail;
+  document.getElementById('tax-subject-display').textContent=D.global.taxSubject;
+  document.getElementById('tax-template-display').textContent=D.global.taxTemplate;
+  saveData();
 }
 
 // ── HELPERS ───────────────────────────────────────────────────────────────────
 function eid(s){return s.replace(/[^a-z0-9]/gi,'_')}
 function es(s){return s.replace(/\\/g,'\\\\').replace(/'/g,"\\'")}
-
 document.getElementById('login-modal').addEventListener('click',function(e){if(e.target===this)closeLogin();});
 </script>
 </body>
